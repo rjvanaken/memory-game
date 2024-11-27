@@ -6,7 +6,7 @@ def main():
     turtle_helper.setup_game_space()
     turtle_helper.game_board()
     turtle.update()
-    # turtle.tracer(1)
+    turtle.tracer(1)
 
     turtle.Screen().mainloop()
 
