@@ -4,6 +4,9 @@ from Card import Card
 from Config import Colors
 from data import positions
 
+def register_shapes():
+    pass
+
 def setup_game_space():
 
     turtle.title('Memory Game')
@@ -26,6 +29,7 @@ def game_board():
         Card(index, positions[index][0], positions[index][1])
         index += 1
         
+        
 
 
         
@@ -34,9 +38,9 @@ def game_board():
 
 def background():
     screen = turtle.Screen()
-    screen.register_shape("bg_test.gif")
+    screen.register_shape("board_background.gif")
     background = turtle.Turtle()
-    background.shape("bg_test.gif")
+    background.shape("board_background.gif")
     background.setpos(0, 0)
 
         
