@@ -1,5 +1,4 @@
 import turtle
-import game_helpers
 from Card import Card
 from Config import Colors
 from data import positions
@@ -21,20 +20,6 @@ def setup_game_space():
     turtle.write("Boston Quest", align='center', font=("Times New Roman", 16, "bold"))
     turtle.hideturtle()
 
-
-def game_board():
-    game_helpers.shuffle_cards()
-    index = 0
-    for index in range(len(positions)):
-        Card(index, positions[index][0], positions[index][1])
-        index += 1
-        
-        
-
-
-        
-        
-            
 
 def background():
     screen = turtle.Screen()

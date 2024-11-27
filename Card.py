@@ -12,20 +12,21 @@ class Card:
     '''
 
     
-    def __init__(self, index, x, y):
+    def __init__(self, index, x, y, image_id):
         '''Constructor for the Card.'''
 
         self.index = index
+        self.image_id = image_id
         self.isRevealed = False
         self.isFound = False
 
         screen = turtle.Screen()
 
-        # temporary - register front card temp
-        screen.register_shape("default.gif")
+        # register front back shape
+        screen.register_shape(image_id)
         self.card_front = turtle.Turtle()
         self.card_front.penup()
-        self.card_front.shape("default.gif")
+        self.card_front.shape(image_id)
         self.card_front.setpos(x, y)
         self.card_front.speed(0)
 
@@ -51,31 +52,7 @@ class Card:
 
 
 
-
-
-
-    # def set_image_id(self, index, isRevealed):
-    #     if isRevealed is False:
-    #         image_id = 'background.png'
-    #         return image_id
-    #     else:
-    #         image_id = self.get_image_id(self, index)
-
-    # def get_image_id(self, index):
-    #     with open ('img_ids.txt', 'r') as f:
-    #         ids = f.readlines()
-    #         for item in range(len(ids)):
-    #             ids[item].strip()
-    #         image_id = ids[index] 
-    #     return image_id
         
 
-
-
-    # def get_card_index(self, index):
-        
-
-
-# maybe pull the image ID from the shuffled list. Pass in a parameter, like the given index, and get the id so it can be referenced in comparison with the other one opened
 
     
