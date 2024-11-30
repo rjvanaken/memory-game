@@ -2,23 +2,20 @@
     Memory game card class
 '''
 
-import random
 import turtle
-import turtle_helper
-
 class Card:
     '''
     docString
     '''
 
     
-    def __init__(self, index, x, y, image_id):
+    def __init__(self, index, x, y, image_id, game_handler):
         '''Constructor for the Card.'''
 
         self.index = index
         self.image_id = image_id
         self.isRevealed = False
-        self.isFound = False
+        self.game_handler = game_handler
 
         screen = turtle.Screen()
 
@@ -38,17 +35,30 @@ class Card:
         self.card_back.setpos(x, y)
         self.card_back.speed(0)
 
-
-
-
         # click handler
         self.card_back.onclick(lambda x, y: self.flip_card(x, y))
+        
 
     def flip_card(self, x, y):
-        if not self.isRevealed and not self.isFound:
+        if not self.isRevealed:
             self.card_back.hideturtle()
             self.isRevealed = True
+            image_id = self.image_id
+            self.game_handler.card_was_flipped(image_id)
+
             
+    def remove_card(self):
+        self.card_back.hideturtle()
+        self.card_front.hideturtle()
+
+    def reset_card(self):
+        self.card_back.showturtle()
+        self.isRevealed = False
+
+
+
+
+
 
 
 
