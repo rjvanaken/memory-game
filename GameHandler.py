@@ -1,6 +1,5 @@
 import turtle_helper
-# from Card import Card
-from data import positions
+import json
 import random
 
 class GameHandler:
@@ -18,6 +17,9 @@ class GameHandler:
         self.compare_list = []
         self.match_count = 0
         self.attempts = 0
+        self.load_leaderboard()
+        turtle_helper.display_leaderboard(self.leaderboard, 120, 0)
+
 
     def create_user(self):
         user = turtle_helper.setup_user()
@@ -34,6 +36,7 @@ class GameHandler:
             print (f'Must enter 8, 10, or 12. Entered: {card_count}')
             card_count = turtle_helper.setup_card_count()
         return card_count
+    
 
     def shuffle_cards(self, card_count):
         img_ids = []
@@ -45,24 +48,24 @@ class GameHandler:
         random.shuffle(img_ids)
         return img_ids
 
+    def load_leaderboard(self):
+        try: 
+            with open(f"leaderboard_{self.card_count}.json", "r") as f:
+                self.leaderboard = json.load(f)
+        except FileNotFoundError:
+            self.leaderboard = dict()             
+
     def card_was_flipped(self, image_id):
         self.num_flipped += 1
-        
-        print(f'flipped: {self.num_flipped} times')
         if self.num_flipped == 1:
             card_1_id = image_id
             self.update_compare_list(card_1_id)
-            print(self.compare_list)
         elif self.num_flipped == 2:
             self.attempts += 1
-            print(f'attempts: {self.attempts}')
             card_2_id = image_id
             self.update_compare_list(card_2_id)
             self.compare_cards(self.compare_list)
-            print(self.compare_list)
             self.reset_values()
-        else:
-            return ValueError # temp
             
             
     def update_compare_list(self, image_id):
@@ -71,9 +74,10 @@ class GameHandler:
 
 
     def compare_cards(self, compare_list):
-        if self.compare_list[0] == compare_list[1]:
+        if compare_list[0] == compare_list[1]:
             self.remove_or_reset(compare_list, self.cards, True)
             self.match_count += 1
+            self.check_cards(self.card_count, self.match_count)
         else:
             self.remove_or_reset(compare_list, self.cards, False)
 
@@ -96,7 +100,27 @@ class GameHandler:
         self.card_2_id =  None
         self.compare_list = []
 
-            
+    def check_cards(self, card_count, match_count):
+        if match_count == card_count / 2:
+            turtle_helper.display_win_message()
+            self.save_score()
+
+    def save_score(self):
+        self.leaderboard[self.user.title()] = self.attempts
+        with open(f"leaderboard_{self.card_count}.json", "w") as f:
+            json.dump(self.leaderboard, f)
+        
+
+
+        # determine if file exists, if not make it
+        # if it does exist, read it, add this score and save it
+            # Conditions:
+             # if user already exists and the score is higher than attempts:
+                # update the score
+            # if user does not exist, add score
+
+        # are we going to also sort the leaderboard?
+
 
         
 

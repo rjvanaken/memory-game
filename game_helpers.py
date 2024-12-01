@@ -1,5 +1,3 @@
-import random
-import turtle_helper
 from data import positions
 from Card import Card
 
@@ -14,3 +12,5 @@ def create_cards(card_count, handler):
         card_list.append(card)
         index += 1
     return card_list
+
+

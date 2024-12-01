@@ -1,6 +1,7 @@
 import turtle
 import time
 from Config import Colors
+from data import player_pos
 
 # def splash_screen
 
@@ -50,6 +51,23 @@ def background():
     background.shape("giftest.gif")
     background.setpos(0, 0)
 
+def display_leaderboard(dic, x, y):
+    N = 5
+    i = 0
+    sorted_dict = dict(sorted(dic.items(), key=lambda item: item[1], reverse= True)[:N])
+    for key, value in sorted_dict.items():
+        player = f"{key} : {value}"
+        print(player)
+        leaderboard_turtle = turtle.Turtle()
+        leaderboard_turtle.penup()
+        leaderboard_turtle.goto(player_pos[i][0], player_pos[i][1])
+        leaderboard_turtle.color(Colors.off_black)
+        leaderboard_turtle.write(player, align='left', font=("Arial", 12, "normal"))        
+        leaderboard_turtle.hideturtle()
+        i += 1
+
+
+
 def quit_button():
     screen = turtle.Screen()
     screen.register_shape('quit_button.gif')
@@ -57,8 +75,17 @@ def quit_button():
     quit_button.penup()
     quit_button.shape('quit_button.gif')
     quit_button.setpos(87, -189)
-    quit_button.speed(0)
     # quit_button.onclick(screen.bye())
+
+def display_win_message():
+    pass
+    screen = turtle.Screen()
+    screen.register_shape('winner.gif')
+    win_msg = turtle.Turtle()
+    win_msg.penup()
+    win_msg.shape('winner.gif')
+    win_msg.setpos(0, 0)
+    print('You win!')
 
 def set_tracer(tracer):
     screen = turtle.Screen()
@@ -72,7 +99,7 @@ def update_screen():
     screen.update()
 
 def screen_delay():
-    time.sleep(0.5)
+    time.sleep(0.25)
 
         
     
