@@ -1,4 +1,5 @@
 import turtle_helper
+import turtle
 import json
 import random
 
@@ -8,6 +9,9 @@ class GameHandler:
     def __init__(self):
         '''Constructor for the GameHandler'''
 
+        self.card_count_msg = turtle_helper.create_card_count_message() # need to do OBJECT like done with the word ones and then establish what it is in this file
+        self.win_msg = turtle_helper.create_win_message()
+        self.quit_msg = turtle_helper.create_quit_message()
         self.user = self.create_user()
         self.card_count = self.set_card_count()
         self.num_flipped = 0
@@ -17,24 +21,31 @@ class GameHandler:
         self.compare_list = []
         self.match_count = 0
         self.attempts = 0
+        self.leaderboard_turtle = turtle_helper.create_leaderboard_obj()
+        self.status_tracker = turtle_helper.create_status_tracker_obj()
+        turtle_helper.background()
         self.load_leaderboard()
-        turtle_helper.display_leaderboard(self.leaderboard)
+        turtle_helper.setup_status_title(-420, -340)
+        turtle_helper.display_leaderboard(self.leaderboard, self.leaderboard_turtle)
+        turtle_helper.display_game_status(self.status_tracker, self.attempts, self.match_count)
 
 
     def create_user(self):
         user = turtle_helper.setup_user()
-        while user == '':
-            turtle_helper.setup_user()
+        # while user == '' or user == None:
+        #     turtle_helper.setup_user()
         return user
 
     def set_card_count(self):
-        count_options = [8, 10, 12]
+        count_options = ['8', '10', '12']
         # Add try and except for input
         # Add screen messages for error
-        card_count = int(turtle_helper.setup_card_count())
-        if card_count not in count_options:
-            print (f'Invalid entry. Using default value of 12')
-            card_count = 12
+        card_count = '0'
+        card_count = turtle_helper.setup_card_count()
+        while card_count not in count_options:
+            self.display_card_count_message()
+            card_count = turtle_helper.setup_card_count()
+        card_count = int(card_count)
         return card_count
     
 
@@ -78,8 +89,10 @@ class GameHandler:
         if compare_list[0] == compare_list[1]:
             self.remove_or_reset(compare_list, self.cards, True)
             self.match_count += 1
+            self.update_game_status()
             self.check_cards(self.card_count, self.match_count)
         else:
+            self.update_game_status()
             self.remove_or_reset(compare_list, self.cards, False)
 
 
@@ -103,7 +116,7 @@ class GameHandler:
 
     def check_cards(self, card_count, match_count):
         if match_count == card_count / 2:
-            turtle_helper.display_win_message()
+            self.display_win_message()
             self.save_score_and_update_leaderboard()
 
 
@@ -113,9 +126,49 @@ class GameHandler:
         with open(f"leaderboard_{self.card_count}.json", "w") as f:
             json.dump(self.leaderboard, f)
         self.load_leaderboard()
-        turtle_helper.display_leaderboard(self.leaderboard)
+        turtle_helper.display_leaderboard(self.leaderboard, self.leaderboard_turtle)
         turtle_helper.update_screen()
+
+    def update_game_status(self):
         turtle_helper.set_tracer(0)
+        turtle_helper.display_game_status(self.status_tracker, self.attempts, self.match_count)
+        turtle_helper.update_screen()
+        turtle_helper.set_tracer(1)
+
+    def display_win_message(self):
+        screen = turtle.Screen()
+        screen.register_shape('winner.gif')
+        self.win_msg.penup()
+        self.win_msg.shape('winner.gif')
+        self.win_msg.showturtle()
+        self.win_msg.setpos(0, 0)
+        screen.update()
+        turtle_helper.screen_delay(2)
+        self.win_msg.hideturtle()
+        screen.update()
+        
+    def display_card_count_message(self):
+        screen = turtle.Screen()
+        screen.register_shape('card_count_msg.gif')
+        self.card_count_msg.penup()
+        self.card_count_msg.shape('card_count_msg.gif')
+        self.card_count_msg.showturtle()
+        self.card_count_msg.setpos(0, 0)
+        screen.update()
+        turtle_helper.screen_delay(1.5)
+        self.card_count_msg.hideturtle()
+        screen.update()
+
+    def display_quit_message(self):
+        screen = turtle.Screen()
+        screen.register_shape("quit_msg.gif")
+        self.quit_msg.penup()
+        self.quit_msg.shape('quit_msg.gif')
+        self.quit_msg.showturtle()
+        self.quit_msg.setpos(0, 0)
+        screen.update()
+        turtle_helper.screen_delay(2)
+        turtle_helper.set_tracer(1)
         
 
 

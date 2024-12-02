@@ -29,15 +29,16 @@ def setup_game_space():
 def splash_screen():
     set_tracer(0)
     screen = turtle.Screen()
-    screen.register_shape("BostonQuestSplash.gif")
+    screen.register_shape("splash_cover.gif")
     splash = turtle.Turtle()
     splash.penup()
-    splash.shape("BostonQuestSplash.gif")
+    splash.shape("splash_cover.gif")
     splash.setpos(0, 0)
     turtle.hideturtle()
     update_screen()
-    screen_delay(1)
-    splash.clear()
+    screen_delay(1.5)
+    splash.hideturtle()
+    screen.update()
 
 def transition():
     set_tracer(0)
@@ -56,6 +57,9 @@ def transition():
 
 
 
+
+
+
 def setup_title():
 
     screen = turtle.Screen()
@@ -66,6 +70,15 @@ def setup_title():
     title.setpos(0, 340)
     turtle.hideturtle()
 
+def setup_status_title(x, y):
+    status = turtle.Turtle()
+    status.speed(0)
+    status.penup()
+    status.goto(x, y)
+    status.color(Colors.primary)
+    status.write("Status:", align='left', font=("Georgia", 12, "bold"))
+    status.hideturtle()
+
 def background():
 
     screen = turtle.Screen()
@@ -75,11 +88,23 @@ def background():
     background.setpos(0, 0)
     turtle.hideturtle()
 
-def display_leaderboard(dic):
-    N = 5
+def create_status_tracker_obj():
+    status_tracker = turtle.Turtle()
+    status_tracker.hideturtle()
+    status_tracker.speed(0)
+    return status_tracker
+
+def create_leaderboard_obj():
+    leaderboard_turtle = turtle.Turtle()
+    leaderboard_turtle.hideturtle()
+    leaderboard_turtle.speed(0)
+    return leaderboard_turtle
+
+def display_leaderboard(dic, leaderboard_turtle):
+    N = 7
     i = 0
     sorted_dict = dict(sorted(dic.items(), key=lambda item: item[1], reverse= False)[:N])
-    leaderboard_turtle = turtle.Turtle()
+    leaderboard_turtle.clear()
     for key, value in sorted_dict.items():
         player = f"{key} : {value}"
         leaderboard_turtle.penup()
@@ -89,24 +114,46 @@ def display_leaderboard(dic):
         leaderboard_turtle.hideturtle()
         i += 1
 
-def quit_button():
-    screen = turtle.Screen()
-    screen.register_shape('quit_button.gif')
-    quit_button = turtle.Turtle()
-    quit_button.penup()
-    quit_button.shape('quit_button.gif')
-    quit_button.setpos(87, -189)
-    # quit_button.onclick(screen.bye())
+def display_game_status(status_tracker, attempts, matches):
+    status_tracker.clear()
+    status_tracker.penup()
+    status_tracker.goto(-350, -343)
+    status_tracker.color(Colors.off_black)
+    if attempts == 1 and matches == 1:
+        status_tracker.write(f"{attempts} move  | {matches} match", align='left', font=("Trebuchet MS", 12, "normal"))
+    elif attempts == 1 and matches != 1:
+        status_tracker.write(f"{attempts} move  | {matches} matches", align='left', font=("Trebuchet MS", 12, "normal"))
+    elif attempts != 1 and matches == 1:
+        status_tracker.write(f"{attempts} moves | {matches} match  ", align='left', font=("Trebuchet MS", 12, "normal"))
+    else:
+        status_tracker.write(f"{attempts} moves | {matches} matches", align='left', font=("Trebuchet MS", 12, "normal"))
 
-def display_win_message():
-    # ADD CUSTOM WIN MESSAGE
-    screen = turtle.Screen()
-    screen.register_shape('winner.gif')
+    status_tracker.hideturtle()
+
+def create_leaderboard_obj():
+    leaderboard_turtle = turtle.Turtle()
+    leaderboard_turtle.hideturtle()
+    leaderboard_turtle.speed(0)
+    return leaderboard_turtle
+
+
+def create_win_message():
     win_msg = turtle.Turtle()
-    win_msg.penup()
-    win_msg.shape('winner.gif')
-    win_msg.setpos(0, 0)
-    turtle.hideturtle()
+    win_msg.hideturtle()
+    win_msg.speed(0)
+    return win_msg
+
+def create_card_count_message():
+    card_count_msg = turtle.Turtle()
+    card_count_msg.hideturtle()
+    card_count_msg.speed(0)
+    return card_count_msg
+
+def create_quit_message():
+    quit_msg = turtle.Turtle()
+    quit_msg.hideturtle()
+    quit_msg.speed(0)
+    return quit_msg
 
 def set_tracer(tracer):
     screen = turtle.Screen()

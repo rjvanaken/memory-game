@@ -1,13 +1,16 @@
 import turtle
 import turtle_helper
+from GameHandler import GameHandler
 class Button:
-    '''Constructor for the button class'''
+    '''Class to handle the behavior of the 2 custom buttons for quitting and loading cards'''
 
-    def __init__(self, button, x, y) -> None:
+    def __init__(self, button, x, y, handler) -> None:
+        '''Constructor for the button class'''
 
         self.x = x
         self.y = y
         self.button = button
+        self.handler = handler
 
         if self.button == 'quit':
             screen = turtle.Screen()
@@ -32,8 +35,8 @@ class Button:
 
 
     def quit_game(self, x, y):
+        self.handler.display_quit_message()
         turtle.bye()
-        # ADD QUIT MESSAGE
 
 
     def load_cards(self, x, y):
