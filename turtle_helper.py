@@ -82,9 +82,9 @@ def setup_status_title(x, y):
 def background():
 
     screen = turtle.Screen()
-    screen.register_shape("giftest.gif")
+    screen.register_shape("board_background.gif")
     background = turtle.Turtle()
-    background.shape("giftest.gif")
+    background.shape("board_background.gif")
     background.setpos(0, 0)
     turtle.hideturtle()
 
