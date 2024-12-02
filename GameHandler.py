@@ -18,7 +18,7 @@ class GameHandler:
         self.match_count = 0
         self.attempts = 0
         self.load_leaderboard()
-        turtle_helper.display_leaderboard(self.leaderboard, 120, 0)
+        turtle_helper.display_leaderboard(self.leaderboard)
 
 
     def create_user(self):
@@ -32,14 +32,15 @@ class GameHandler:
         # Add try and except for input
         # Add screen messages for error
         card_count = int(turtle_helper.setup_card_count())
-        while card_count not in count_options:
-            print (f'Must enter 8, 10, or 12. Entered: {card_count}')
-            card_count = turtle_helper.setup_card_count()
+        if card_count not in count_options:
+            print (f'Invalid entry. Using default value of 12')
+            card_count = 12
         return card_count
     
 
     def shuffle_cards(self, card_count):
         img_ids = []
+        # add try and except for opening file
         with open('img_ids.txt', 'r') as f:
             _list = f.readlines()
             for item in range(0, card_count):
@@ -103,23 +104,19 @@ class GameHandler:
     def check_cards(self, card_count, match_count):
         if match_count == card_count / 2:
             turtle_helper.display_win_message()
-            self.save_score()
+            self.save_score_and_update_leaderboard()
 
-    def save_score(self):
+
+    def save_score_and_update_leaderboard(self):
+        turtle_helper.set_tracer(0)
         self.leaderboard[self.user.title()] = self.attempts
         with open(f"leaderboard_{self.card_count}.json", "w") as f:
             json.dump(self.leaderboard, f)
+        self.load_leaderboard()
+        turtle_helper.display_leaderboard(self.leaderboard)
+        turtle_helper.update_screen()
+        turtle_helper.set_tracer(0)
         
-
-
-        # determine if file exists, if not make it
-        # if it does exist, read it, add this score and save it
-            # Conditions:
-             # if user already exists and the score is higher than attempts:
-                # update the score
-            # if user does not exist, add score
-
-        # are we going to also sort the leaderboard?
 
 
         

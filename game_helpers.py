@@ -1,4 +1,4 @@
-from data import positions
+from turtle_pos import positions
 from Card import Card
 
     

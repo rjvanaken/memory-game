@@ -1,16 +1,41 @@
 import turtle
-
+import turtle_helper
 class Button:
     '''Constructor for the button class'''
 
-    def __init__(self) -> None:
+    def __init__(self, button, x, y) -> None:
 
-        screen = turtle.Screen()
+        self.x = x
+        self.y = y
+        self.button = button
 
-        # register quit button
-        screen.register_shape('quit_button.gif')
-        self.quit_button = turtle.Turtle()
-        self.quit_button.penup()
-        self.quit_button.shape('quit_button.gif')
-        self.quit_button.setpos(87, -189)
-        self.quit_button.speed(0)
+        if self.button == 'quit':
+            screen = turtle.Screen()
+            # register quit button
+            screen.register_shape('quit_button.gif')
+            self.quit_button = turtle.Turtle()
+            self.quit_button.penup()
+            self.quit_button.shape('quit_button.gif')
+            self.quit_button.setpos(x, y)
+            self.quit_button.speed(0)
+
+            self.quit_button.onclick(lambda x, y: self.quit_game(x, y))
+
+        if self.button == 'load':
+            screen = turtle.Screen()
+            # register quit button
+            screen.register_shape('load_button.gif')
+            self.quit_button = turtle.Turtle()
+            self.quit_button.penup()
+            self.quit_button.shape('load_button.gif')
+            self.quit_button.setpos(x, y)
+            self.quit_button.speed(0)
+
+            self.quit_button.onclick(lambda x, y: self.load_cards(x, y))
+
+
+    def quit_game(self, x, y):
+        turtle.bye()
+
+    def load_cards(self, x, y):
+        pass

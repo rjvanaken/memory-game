@@ -2,6 +2,8 @@ import turtle_helper
 import game_helpers
 import turtle
 from GameHandler import GameHandler
+from Button import Button
+
 
 def main():
     turtle.tracer(0)
@@ -11,7 +13,9 @@ def main():
     turtle.tracer(1)
     turtle.update()
     turtle.tracer(0)
-    turtle_helper.setup_title()
+    turtle_helper.background()
+    Button(button='quit', x=330, y=-310)
+    Button(button='load', x=330, y=-255)
     # Initialize the handler
     handler = GameHandler()
     handler.cards = game_helpers.create_cards(handler.card_count, handler)

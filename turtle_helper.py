@@ -1,7 +1,7 @@
 import turtle
 import time
 from Config import Colors
-from data import player_pos
+from turtle_pos import player_pos
 
 # def splash_screen
 
@@ -24,24 +24,25 @@ def setup_game_space():
     turtle.hideturtle()
     screen = turtle.Screen()
     screen.bgcolor(Colors.off_white)
-    screen.setup(900, 900)
+    screen.setup(1000, 800)
 
 def setup_title():
 
-    background()
+    screen = turtle.Screen()
+    screen.register_shape("BostonQuest.gif")
     title = turtle.Turtle()
     title.penup()
-    title.up()
-    title.goto(0, 340)
-    title.color(Colors.secondary)
-    title.write("Boston Quest", align='center', font=("Times New Roman", 16, "bold"))
-    title.hideturtle()
-    subtitle = turtle.Turtle()
-    subtitle.penup()
-    subtitle.goto(0, 315)
-    subtitle.color(Colors.off_black)
-    subtitle.write("The ultimate Boston memory test", align='center', font=("Arial", 10, "normal"))
-    subtitle.hideturtle()
+    title.shape("BostonQuest.gif")
+    title.setpos(0, 340)
+    # title.color(Colors.secondary)
+    # title.write("Boston Quest", align='center', font=("Georgia", 16, "bold"))
+    # title.hideturtle()
+    # subtitle = turtle.Turtle()
+    # subtitle.penup()
+    # subtitle.goto(0, 315)
+    # subtitle.color(Colors.off_black)
+    # subtitle.write("The ultimate Boston memory test", align='center', font=("Trebuchet MS", 10, "normal"))
+    # subtitle.hideturtle()
 
 def background():
 
@@ -51,22 +52,20 @@ def background():
     background.shape("giftest.gif")
     background.setpos(0, 0)
 
-def display_leaderboard(dic, x, y):
+def display_leaderboard(dic):
     N = 5
     i = 0
-    sorted_dict = dict(sorted(dic.items(), key=lambda item: item[1], reverse= True)[:N])
+    sorted_dict = dict(sorted(dic.items(), key=lambda item: item[1], reverse= False)[:N])
+    leaderboard_turtle = turtle.Turtle()
     for key, value in sorted_dict.items():
         player = f"{key} : {value}"
-        print(player)
-        leaderboard_turtle = turtle.Turtle()
         leaderboard_turtle.penup()
         leaderboard_turtle.goto(player_pos[i][0], player_pos[i][1])
         leaderboard_turtle.color(Colors.off_black)
-        leaderboard_turtle.write(player, align='left', font=("Arial", 12, "normal"))        
+        leaderboard_turtle.write(player, align='left', font=("Trebuchet MS", 12, "normal"))        
         leaderboard_turtle.hideturtle()
         i += 1
-
-
+        leaderboard_turtle.clear()
 
 def quit_button():
     screen = turtle.Screen()
