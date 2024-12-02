@@ -91,7 +91,7 @@ class GameHandler:
                     item.remove_card()
                 else:
                     item.reset_card()
-        turtle_helper.screen_delay()
+        turtle_helper.screen_delay(0.25)
         turtle_helper.update_screen()
         turtle_helper.set_tracer(True)
 

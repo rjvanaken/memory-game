@@ -21,10 +21,40 @@ def setup_card_count():
 def setup_game_space():
 
     turtle.title('Memory Game')
-    turtle.hideturtle()
     screen = turtle.Screen()
     screen.bgcolor(Colors.off_white)
     screen.setup(1000, 800)
+    turtle.hideturtle()
+
+def splash_screen():
+    set_tracer(0)
+    screen = turtle.Screen()
+    screen.register_shape("BostonQuestSplash.gif")
+    splash = turtle.Turtle()
+    splash.penup()
+    splash.shape("BostonQuestSplash.gif")
+    splash.setpos(0, 0)
+    turtle.hideturtle()
+    update_screen()
+    screen_delay(1)
+    splash.clear()
+
+def transition():
+    set_tracer(0)
+    screen = turtle.Screen()
+    screen.register_shape("cover.gif")
+    cover = turtle.Turtle()
+    cover.penup()
+    cover.shape("cover.gif")
+    cover.setpos(0, 0)
+    screen_delay(0.25)
+    turtle.hideturtle()
+    update_screen()
+    set_tracer(1)
+    cover.speed(8)
+    cover.setpos(1100, 0)
+
+
 
 def setup_title():
 
@@ -34,15 +64,7 @@ def setup_title():
     title.penup()
     title.shape("BostonQuest.gif")
     title.setpos(0, 340)
-    # title.color(Colors.secondary)
-    # title.write("Boston Quest", align='center', font=("Georgia", 16, "bold"))
-    # title.hideturtle()
-    # subtitle = turtle.Turtle()
-    # subtitle.penup()
-    # subtitle.goto(0, 315)
-    # subtitle.color(Colors.off_black)
-    # subtitle.write("The ultimate Boston memory test", align='center', font=("Trebuchet MS", 10, "normal"))
-    # subtitle.hideturtle()
+    turtle.hideturtle()
 
 def background():
 
@@ -51,6 +73,7 @@ def background():
     background = turtle.Turtle()
     background.shape("giftest.gif")
     background.setpos(0, 0)
+    turtle.hideturtle()
 
 def display_leaderboard(dic):
     N = 5
@@ -65,7 +88,6 @@ def display_leaderboard(dic):
         leaderboard_turtle.write(player, align='left', font=("Trebuchet MS", 12, "normal"))        
         leaderboard_turtle.hideturtle()
         i += 1
-        leaderboard_turtle.clear()
 
 def quit_button():
     screen = turtle.Screen()
@@ -77,14 +99,14 @@ def quit_button():
     # quit_button.onclick(screen.bye())
 
 def display_win_message():
-    pass
+    # ADD CUSTOM WIN MESSAGE
     screen = turtle.Screen()
     screen.register_shape('winner.gif')
     win_msg = turtle.Turtle()
     win_msg.penup()
     win_msg.shape('winner.gif')
     win_msg.setpos(0, 0)
-    print('You win!')
+    turtle.hideturtle()
 
 def set_tracer(tracer):
     screen = turtle.Screen()
@@ -97,8 +119,8 @@ def update_screen():
     screen = turtle.Screen()
     screen.update()
 
-def screen_delay():
-    time.sleep(0.25)
+def screen_delay(seconds):
+    time.sleep(seconds)
 
         
     

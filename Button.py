@@ -17,7 +17,6 @@ class Button:
             self.quit_button.penup()
             self.quit_button.shape('quit_button.gif')
             self.quit_button.setpos(x, y)
-            self.quit_button.speed(0)
 
             self.quit_button.onclick(lambda x, y: self.quit_game(x, y))
 
@@ -29,13 +28,13 @@ class Button:
             self.quit_button.penup()
             self.quit_button.shape('load_button.gif')
             self.quit_button.setpos(x, y)
-            self.quit_button.speed(0)
-
             self.quit_button.onclick(lambda x, y: self.load_cards(x, y))
 
 
     def quit_game(self, x, y):
         turtle.bye()
+        # ADD QUIT MESSAGE
+
 
     def load_cards(self, x, y):
         pass

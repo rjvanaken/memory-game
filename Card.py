@@ -25,7 +25,6 @@ class Card:
         self.card_front.penup()
         self.card_front.shape(image_id)
         self.card_front.setpos(x, y)
-        self.card_front.speed(0)
 
         # register card back shape
         screen.register_shape("card_back.gif")
@@ -33,10 +32,9 @@ class Card:
         self.card_back.penup()
         self.card_back.shape("card_back.gif")
         self.card_back.setpos(x, y)
-        self.card_back.speed(0)
 
         # click handler
-        self.card_back.onclick(lambda x, y: self.flip_card(x, y))
+        self.card_back.onrelease(lambda x, y: self.flip_card(x, y))
         
 
     def flip_card(self, x, y):
