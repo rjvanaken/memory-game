@@ -34,7 +34,7 @@ class Card:
         self.card_back.setpos(x, y)
 
         # click handler
-        self.card_back.onrelease(lambda x, y: self.flip_card(x, y))
+        self.card_back.onclick(lambda x, y: self.flip_card(x, y))
         
 
     def flip_card(self, x, y):

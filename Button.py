@@ -18,7 +18,7 @@ class Button:
             self.quit_button.shape('quit_button.gif')
             self.quit_button.setpos(x, y)
 
-            self.quit_button.onclick(lambda x, y: self.quit_game(x, y))
+            self.quit_button.onrelease(lambda x, y: self.quit_game(x, y))
 
         if self.button == 'load':
             screen = turtle.Screen()
@@ -28,7 +28,7 @@ class Button:
             self.quit_button.penup()
             self.quit_button.shape('load_button.gif')
             self.quit_button.setpos(x, y)
-            self.quit_button.onclick(lambda x, y: self.load_cards(x, y))
+            self.quit_button.onrelease(lambda x, y: self.load_cards(x, y))
 
 
     def quit_game(self, x, y):
