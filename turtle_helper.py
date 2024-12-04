@@ -3,8 +3,6 @@ import time
 from Config import Colors
 from turtle_pos import player_pos
 
-# def splash_screen
-
 
 def setup_user():
     user = ''
@@ -36,7 +34,7 @@ def splash_screen():
     splash.setpos(0, 0)
     turtle.hideturtle()
     update_screen()
-    screen_delay(1.5)
+    time.sleep(1.5)
     splash.hideturtle()
     screen.update()
 
@@ -48,7 +46,7 @@ def transition():
     cover.penup()
     cover.shape("cover.gif")
     cover.setpos(0, 0)
-    screen_delay(0.25)
+    time.sleep(0.25)
     turtle.hideturtle()
     update_screen()
     set_tracer(1)
@@ -155,6 +153,13 @@ def create_quit_message():
     quit_msg.speed(0)
     return quit_msg
 
+def create_screen_blocker():
+    screen_blocker = turtle.Turtle()
+    screen_blocker.hideturtle()
+    screen_blocker.speed(0)
+    return screen_blocker
+
+
 def set_tracer(tracer):
     screen = turtle.Screen()
     if tracer == True:
@@ -166,8 +171,6 @@ def update_screen():
     screen = turtle.Screen()
     screen.update()
 
-def screen_delay(seconds):
-    time.sleep(seconds)
 
         
     

@@ -1,5 +1,7 @@
 from turtle_pos import positions
 from Card import Card
+import os
+from Config import CardFront
 
     
 def create_cards(card_count, handler):
@@ -13,4 +15,10 @@ def create_cards(card_count, handler):
         index += 1
     return card_list
 
-
+def get_card_image_names(folder_path, output_file):
+    with open('img_ids.txt', 'w') as output_file:
+        for filename in os.listdir(folder_path):
+            output_file.write(filename + "\n")
+        # execute this part twice since each image is used twice
+        for filename in os.listdir(folder_path):
+            output_file.write(filename + "\n")

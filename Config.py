@@ -1,3 +1,5 @@
+import os
+
 class Colors:
     # primary colors
     primary = '#A2798F'
@@ -15,20 +17,18 @@ class Colors:
     off_black = '#464545'
     gray = '#D9D9D9'
 
-# class SetTheme:
-#     if CardTheme.defau
 
-# class CardTheme:
-#     default = True
-#     holiday = False
-#     harry_potter = False
-#     boston = False
+class CardBackTheme:
+    default = True
+    holiday = False
 
-#     if holiday is True and harry_potter is False and boston is False and default is False:
-#         background_id = 'holiday.png'
 
-    
-    
-#     if default is True:
-#         background_id = 'default_bg.png'
+
+class CardFront:
+    image_dir_name = 'boston_places'
+
+
+
+
+
     

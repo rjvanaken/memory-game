@@ -2,6 +2,10 @@ import turtle_helper
 import turtle
 import json
 import random
+import os
+import time
+import game_helpers
+from Config import CardFront
 
 class GameHandler:
     '''A class for handling the game behavior'''
@@ -9,14 +13,15 @@ class GameHandler:
     def __init__(self):
         '''Constructor for the GameHandler'''
 
-        self.card_count_msg = turtle_helper.create_card_count_message() # need to do OBJECT like done with the word ones and then establish what it is in this file
+        self.card_count_msg = turtle_helper.create_card_count_message() 
         self.win_msg = turtle_helper.create_win_message()
         self.quit_msg = turtle_helper.create_quit_message()
+        self.screen_blocker = turtle_helper.create_screen_blocker()
         self.user = self.create_user()
         self.card_count = self.set_card_count()
         self.num_flipped = 0
         self.card_1_id = None
-        self.card_2_id =  None
+        self.card_2_id = None
         self.cards = []
         self.compare_list = []
         self.match_count = 0
@@ -38,8 +43,6 @@ class GameHandler:
 
     def set_card_count(self):
         count_options = ['8', '10', '12']
-        # Add try and except for input
-        # Add screen messages for error
         card_count = '0'
         card_count = turtle_helper.setup_card_count()
         while card_count not in count_options:
@@ -47,9 +50,10 @@ class GameHandler:
             card_count = turtle_helper.setup_card_count()
         card_count = int(card_count)
         return card_count
-    
 
     def shuffle_cards(self, card_count):
+        card_path = self.set_card_path()
+        game_helpers.get_card_image_names(card_path, 'img_ids.txt')
         img_ids = []
         # add try and except for opening file
         with open('img_ids.txt', 'r') as f:
@@ -59,6 +63,12 @@ class GameHandler:
                 img_ids.append(id)
         random.shuffle(img_ids)
         return img_ids
+
+    def set_card_path(self):
+        cwd = os.getcwd()
+        card_front_dir = CardFront.image_dir_name
+        card_front_path = os.path.join(cwd, card_front_dir)
+        return card_front_path
 
     def load_leaderboard(self):
         try: 
@@ -75,6 +85,8 @@ class GameHandler:
         elif self.num_flipped == 2:
             self.attempts += 1
             card_2_id = image_id
+            self.display_screen_blocker()
+            self.screen_delay(0.75)
             self.update_compare_list(card_2_id)
             self.compare_cards(self.compare_list)
             self.reset_values()
@@ -104,7 +116,8 @@ class GameHandler:
                     item.remove_card()
                 else:
                     item.reset_card()
-        turtle_helper.screen_delay(0.25)
+        self.hide_screen_blocker()
+        self.screen_delay(0.25)
         turtle_helper.update_screen()
         turtle_helper.set_tracer(True)
 
@@ -143,7 +156,7 @@ class GameHandler:
         self.win_msg.showturtle()
         self.win_msg.setpos(0, 0)
         screen.update()
-        turtle_helper.screen_delay(2)
+        self.screen_delay(2)
         self.win_msg.hideturtle()
         screen.update()
         
@@ -155,8 +168,23 @@ class GameHandler:
         self.card_count_msg.showturtle()
         self.card_count_msg.setpos(0, 0)
         screen.update()
-        turtle_helper.screen_delay(1.5)
+        self.screen_delay(1.5)
         self.card_count_msg.hideturtle()
+        screen.update()
+
+    def display_screen_blocker(self):
+        screen = turtle.Screen()
+        screen.register_shape('screen_blocker.gif')
+        self.screen_blocker.penup()
+        self.screen_blocker.shape('screen_blocker.gif')
+        self.screen_blocker.showturtle()
+        self.screen_blocker.setpos(0, 0)
+        screen.update()
+
+
+    def hide_screen_blocker(self):
+        screen = turtle.Screen()
+        self.screen_blocker.hideturtle()
         screen.update()
 
     def display_quit_message(self):
@@ -167,10 +195,15 @@ class GameHandler:
         self.quit_msg.showturtle()
         self.quit_msg.setpos(0, 0)
         screen.update()
-        turtle_helper.screen_delay(2)
+        self.screen_delay(2)
         turtle_helper.set_tracer(1)
         
-
+    def screen_delay(self, seconds):
+        screen = turtle.Screen()
+        self.display_screen_blocker
+        time.sleep(seconds)
+        self.hide_screen_blocker
+        screen.update()
 
         
 

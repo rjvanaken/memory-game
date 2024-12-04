@@ -3,6 +3,7 @@
 '''
 
 import turtle
+import os
 class Card:
     '''
     docString
@@ -20,6 +21,8 @@ class Card:
         screen = turtle.Screen()
 
         # register front back shape
+        card_dir = self.game_handler.set_card_path()
+        os.chdir(card_dir)
         screen.register_shape(image_id)
         self.card_front = turtle.Turtle()
         self.card_front.penup()
@@ -27,6 +30,7 @@ class Card:
         self.card_front.setpos(x, y)
 
         # register card back shape
+        os.chdir('..')
         screen.register_shape("card_back.gif")
         self.card_back = turtle.Turtle()
         self.card_back.penup()
