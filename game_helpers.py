@@ -25,3 +25,4 @@ def get_card_image_names(folder_path, output_file):
             for filename in os.listdir(folder_path):
                 output_file.write(filename + "\n")
         # except FileNotFoundError:
+        # maybe here set folderpath to the whole join os thing to set it specifically to boston_places and proceed

@@ -34,3 +34,6 @@ if __name__ == '__main__':
     # I guess would take doing a conditional for when it's run
 
     # like on_failed_reload or something for card creation - which I guess means it would be in all cases if it can't find it... so again we are back to the original comment...grrr
+
+
+    # ALSO need to figure out how to either remove existing cards on reload or cover them up, removing is probably the safer option
