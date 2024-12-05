@@ -13,7 +13,8 @@ def main():
     handler = GameHandler()
     Button(button='quit', x=330, y=-310, handler=handler)
     Button(button='load', x=330, y=-255, handler=handler)
-    handler.cards = game_helpers.create_cards(handler.card_count, handler, 'config.cfg')
+    card_dir = handler.set_card_path('config.cfg')
+    handler.cards = game_helpers.create_cards(handler.card_count, handler, 'config.cfg', card_dir)
     turtle.tracer(0)
     turtle_helper.transition()
 
