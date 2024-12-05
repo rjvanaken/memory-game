@@ -16,6 +16,11 @@ def setup_card_count():
     card_count = screen.textinput("Cards", "Enter the number of cards you woud like to play with (8, 10, or 12): ")
     return card_count
 
+def setup_config_file():
+    screen = turtle.Screen()
+    config_file = screen.textinput('Card Configuration', "Enter the config file name with the image directory you want to use")
+    return config_file
+
 def setup_game_space():
 
     turtle.title('Memory Game')
@@ -164,6 +169,18 @@ def create_cards_loaded_msg():
     cards_loaded_msg.hideturtle()
     cards_loaded_msg.speed(0)
     return cards_loaded_msg
+
+def create_config_not_found_msg():
+    config_not_found_msg = turtle.Turtle()
+    config_not_found_msg.hideturtle()
+    config_not_found_msg.speed(0)
+    return config_not_found_msg
+
+def create_dir_not_found_msg():
+    dir_not_found_msg = turtle.Turtle()
+    dir_not_found_msg.hideturtle()
+    dir_not_found_msg.speed(0)
+    return dir_not_found_msg
 
 def create_invalid_card_path_msg():
     invalid_card_path_msg = turtle.Turtle()

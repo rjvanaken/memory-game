@@ -19,6 +19,8 @@ class GameHandler:
         self.screen_blocker = turtle_helper.create_screen_blocker()
         self.cards_loaded_msg = turtle_helper.create_cards_loaded_msg()
         self.invalid_card_path_msg = turtle_helper.create_invalid_card_path_msg()
+        self.config_not_found_msg = turtle_helper.create_config_not_found_msg()
+        self.dir_not_found_msg = turtle_helper.create_dir_not_found_msg()
         self.user = self.create_user()
         self.card_count = self.set_card_count()
         self.num_flipped = 0
@@ -53,8 +55,8 @@ class GameHandler:
         card_count = int(card_count)
         return card_count
 
-    def shuffle_cards(self, card_count):
-        card_path = self.set_card_path()
+    def shuffle_cards(self, card_count, config_file):
+        card_path = self.set_card_path(config_file)
         game_helpers.get_card_image_names(card_path, 'img_ids.txt')
         img_ids = []
         # add try and except for opening file
@@ -65,14 +67,40 @@ class GameHandler:
                 img_ids.append(id)
         random.shuffle(img_ids)
         return img_ids
+    
+    def clear_cards(self):
+        for card in self.cards:
+            card.remove_card()
+        self.cards = []
 
-    def set_card_path(self):
-        config = configparser.ConfigParser()
-        config.read('config.cfg')
-        cwd = os.getcwd()
-        card_front_dir = config.get('card_customization', 'card_front_dir')
-        card_front_path = os.path.join(cwd, card_front_dir)
+    def set_default_card_dir(self, cwd_set, cwd):
+        if cwd_set == False:
+            cwd = os.getcwd()
+        card_front_path = os.path.join(cwd, 'boston_places')
         return card_front_path
+        
+    def set_card_path(self, config_file):
+        cwd_set = False
+        if os.path.exists(config_file):
+            config = configparser.ConfigParser()
+            config.read(config_file)
+            cwd = os.getcwd()
+            cwd_set = True
+            card_front_dir = config.get('card_customization', 'card_front_dir')
+            card_front_path = os.path.join(cwd, card_front_dir)
+            if os.path.exists(card_front_path):
+                return card_front_path
+            else:
+                card_front_path = self.set_default_card_dir(cwd_set, cwd)
+                self.display_dir_not_found_msg()
+                return card_front_path
+        else:
+            card_front_path = self.set_default_card_dir(cwd_set, cwd)
+            turtle_helper.set_tracer(False)
+            self.display_config_not_found_msg()
+            return card_front_path
+            
+
 
     def load_leaderboard(self):
         try: 
@@ -93,7 +121,7 @@ class GameHandler:
             self.screen_delay(0.75)
             self.update_compare_list(card_2_id)
             self.compare_cards(self.compare_list)
-            self.reset_values(False)
+            self.reset_values()
         self.hide_screen_blocker()
             
             
@@ -125,13 +153,16 @@ class GameHandler:
         turtle_helper.update_screen()
         turtle_helper.set_tracer(True)
 
-    def reset_values(self, on_reload):
+    def reset_values(self):
         self.num_flipped = 0
         self.card_1_id = None
         self.card_2_id =  None
         self.compare_list = []
-        if on_reload == True:
-            self.match_count = 0
+
+    def reset_game_progress(self):
+        self.match_count = 0
+        self.attempts = 0
+        self.update_game_status()
 
     def check_cards(self, card_count, match_count):
         if match_count == card_count / 2:
@@ -190,6 +221,32 @@ class GameHandler:
         self.cards_loaded_msg.hideturtle()
         screen.update()
 
+    def display_config_not_found_msg(self):
+        self.config_not_found_msg = turtle_helper.create_config_not_found_msg()
+        screen = turtle.Screen()
+        screen.register_shape('config_not_found.gif')
+        self.config_not_found_msg.penup()
+        self.config_not_found_msg.shape('config_not_found.gif')
+        self.config_not_found_msg.showturtle()
+        self.config_not_found_msg.setpos(0, 0)
+        screen.update()
+        self.screen_delay(1.5)
+        self.config_not_found_msg.hideturtle()
+        screen.update()
+
+    def display_dir_not_found_msg(self):
+        self.dir_not_found_msg = turtle_helper.create_dir_not_found_msg()
+        screen = turtle.Screen()
+        screen.register_shape('directory_not_found.gif')
+        self.dir_not_found_msg.penup()
+        self.dir_not_found_msg.shape('directory_not_found.gif')
+        self.dir_not_found_msg.showturtle()
+        self.dir_not_found_msg.setpos(0, 0)
+        screen.update()
+        self.screen_delay(1.5)
+        self.dir_not_found_msg.hideturtle()
+        screen.update()
+
     def display_invalid_card_path_msg(self):
         screen = turtle.Screen()
         screen.register_shape('invalid_card_path.gif')
@@ -204,6 +261,7 @@ class GameHandler:
 
     def display_screen_blocker(self):
         screen = turtle.Screen()
+        self.screen_blocker = turtle_helper.create_screen_blocker()
         screen.register_shape('screen_blocker.gif')
         self.screen_blocker.penup()
         self.screen_blocker.shape('screen_blocker.gif')

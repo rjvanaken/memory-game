@@ -10,7 +10,7 @@ class Card:
     '''
 
     
-    def __init__(self, index, x, y, image_id, game_handler):
+    def __init__(self, index, x, y, image_id, game_handler, config_file):
         '''Constructor for the Card.'''
 
         self.index = index
@@ -21,7 +21,7 @@ class Card:
         screen = turtle.Screen()
 
         # register front back shape
-        card_dir = self.game_handler.set_card_path()
+        card_dir = self.game_handler.set_card_path(config_file)
         os.chdir(card_dir)
         screen.register_shape(image_id)
         self.card_front = turtle.Turtle()
@@ -56,6 +56,8 @@ class Card:
     def reset_card(self):
         self.card_back.showturtle()
         self.isRevealed = False
+
+    
 
 
 

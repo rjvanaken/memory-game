@@ -43,18 +43,12 @@ class Button:
 
 
     def load_cards(self, x, y):
+        config_file = turtle_helper.setup_config_file()
         turtle_helper.set_tracer(False)
-        try:
-            self.handler.cards = game_helpers.create_cards(self.handler.card_count, self.handler)
-            self.handler.reset_values(True)
-            turtle_helper.update_screen()
-            turtle_helper.set_tracer(True)
-        except FileNotFoundError:
-            config = configparser.ConfigParser()
-            config.read('config.cfg')
-            config.set('card_customization', 'card_front_dir', 'boston_places')
-            with open('config.cfg', 'w') as f:
-                config.write(f)
-            self.handler.display_invalid_card_path_msg()
-            self.load_cards(x, y)
+        self.handler.clear_cards()
+        self.handler.cards = game_helpers.create_cards(self.handler.card_count, self.handler, config_file)
+        self.handler.reset_values()
+        self.handler.reset_game_progress()
+        turtle_helper.update_screen()
+        turtle_helper.set_tracer(True)
 
