@@ -1,6 +1,6 @@
 import turtle
 import time
-from Config import Colors
+from Colors import Colors
 from turtle_pos import player_pos
 
 
@@ -159,6 +159,17 @@ def create_screen_blocker():
     screen_blocker.speed(0)
     return screen_blocker
 
+def create_cards_loaded_msg():
+    cards_loaded_msg = turtle.Turtle()
+    cards_loaded_msg.hideturtle()
+    cards_loaded_msg.speed(0)
+    return cards_loaded_msg
+
+def create_invalid_card_path_msg():
+    invalid_card_path_msg = turtle.Turtle()
+    invalid_card_path_msg.hideturtle()
+    invalid_card_path_msg.speed(0)
+    return invalid_card_path_msg
 
 def set_tracer(tracer):
     screen = turtle.Screen()
@@ -170,10 +181,3 @@ def set_tracer(tracer):
 def update_screen():
     screen = turtle.Screen()
     screen.update()
-
-
-        
-    
-    
-
-    

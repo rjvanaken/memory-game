@@ -47,7 +47,7 @@ class Card:
             self.isRevealed = True
             image_id = self.image_id
             self.game_handler.card_was_flipped(image_id)
-
+    
             
     def remove_card(self):
         self.card_back.hideturtle()

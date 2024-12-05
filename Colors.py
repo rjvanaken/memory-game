@@ -1,4 +1,3 @@
-import os
 
 class Colors:
     # primary colors
@@ -17,15 +16,6 @@ class Colors:
     off_black = '#464545'
     gray = '#D9D9D9'
 
-
-class CardBackTheme:
-    default = True
-    holiday = False
-
-
-
-class CardFront:
-    image_dir_name = 'boston_places'
 
 
 

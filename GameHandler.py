@@ -5,18 +5,20 @@ import random
 import os
 import time
 import game_helpers
-from Config import CardFront
+import configparser
 
 class GameHandler:
     '''A class for handling the game behavior'''
 
     def __init__(self):
         '''Constructor for the GameHandler'''
-
+        
         self.card_count_msg = turtle_helper.create_card_count_message() 
         self.win_msg = turtle_helper.create_win_message()
         self.quit_msg = turtle_helper.create_quit_message()
         self.screen_blocker = turtle_helper.create_screen_blocker()
+        self.cards_loaded_msg = turtle_helper.create_cards_loaded_msg()
+        self.invalid_card_path_msg = turtle_helper.create_invalid_card_path_msg()
         self.user = self.create_user()
         self.card_count = self.set_card_count()
         self.num_flipped = 0
@@ -65,8 +67,10 @@ class GameHandler:
         return img_ids
 
     def set_card_path(self):
+        config = configparser.ConfigParser()
+        config.read('config.cfg')
         cwd = os.getcwd()
-        card_front_dir = CardFront.image_dir_name
+        card_front_dir = config.get('card_customization', 'card_front_dir')
         card_front_path = os.path.join(cwd, card_front_dir)
         return card_front_path
 
@@ -78,6 +82,7 @@ class GameHandler:
             self.leaderboard = dict()             
 
     def card_was_flipped(self, image_id):
+        self.display_screen_blocker()
         self.num_flipped += 1
         if self.num_flipped == 1:
             card_1_id = image_id
@@ -85,11 +90,11 @@ class GameHandler:
         elif self.num_flipped == 2:
             self.attempts += 1
             card_2_id = image_id
-            self.display_screen_blocker()
             self.screen_delay(0.75)
             self.update_compare_list(card_2_id)
             self.compare_cards(self.compare_list)
-            self.reset_values()
+            self.reset_values(False)
+        self.hide_screen_blocker()
             
             
     def update_compare_list(self, image_id):
@@ -116,16 +121,17 @@ class GameHandler:
                     item.remove_card()
                 else:
                     item.reset_card()
-        self.hide_screen_blocker()
         self.screen_delay(0.25)
         turtle_helper.update_screen()
         turtle_helper.set_tracer(True)
 
-    def reset_values(self):
+    def reset_values(self, on_reload):
         self.num_flipped = 0
         self.card_1_id = None
         self.card_2_id =  None
         self.compare_list = []
+        if on_reload == True:
+            self.match_count = 0
 
     def check_cards(self, card_count, match_count):
         if match_count == card_count / 2:
@@ -170,6 +176,30 @@ class GameHandler:
         screen.update()
         self.screen_delay(1.5)
         self.card_count_msg.hideturtle()
+        screen.update()
+
+    def display_cards_loaded_msg(self):
+        screen = turtle.Screen()
+        screen.register_shape('cards_loaded_msg.gif')
+        self.cards_loaded_msg.penup()
+        self.cards_loaded_msg.shape('cards_loaded_msg.gif')
+        self.cards_loaded_msg.showturtle()
+        self.cards_loaded_msg.setpos(0, 0)
+        screen.update()
+        self.screen_delay(1.5)
+        self.cards_loaded_msg.hideturtle()
+        screen.update()
+
+    def display_invalid_card_path_msg(self):
+        screen = turtle.Screen()
+        screen.register_shape('invalid_card_path.gif')
+        self.invalid_card_path_msg.penup()
+        self.invalid_card_path_msg.shape('invalid_card_path.gif')
+        self.invalid_card_path_msg.showturtle()
+        self.invalid_card_path_msg.setpos(0, 0)
+        screen.update()
+        self.screen_delay(1.5)
+        self.invalid_card_path_msg.hideturtle()
         screen.update()
 
     def display_screen_blocker(self):
