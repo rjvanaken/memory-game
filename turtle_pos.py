@@ -1,3 +1,11 @@
+'''
+    Rebecca Van Aken
+    CS 5001, Fall, 2024
+    Final Project
+
+    This file contains two nested lists, containing x and y coordinates for the cards and leaderboard players for their location on the screen
+'''
+
 positions = [[-356, 195], 
              [-205, 195], 
              [-54, 195], 

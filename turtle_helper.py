@@ -1,3 +1,12 @@
+'''
+    Rebecca Van Aken
+    CS 5001, Fall, 2024
+    Final Project
+
+    This file contains helper functions that require the use of the turtle module for the Memory Game.
+
+'''
+
 import turtle
 import time
 from Colors import Colors
@@ -5,6 +14,15 @@ from turtle_pos import player_pos
 
 
 def setup_user():
+    '''
+        Function: setup_user()
+
+        Does: displays the text input for the player to enter their name
+
+        Returns:
+            - user: a string, the name of the player
+    
+    '''
     user = ''
     screen = turtle.Screen()
     user = screen.textinput("Name", "Enter your name:")
@@ -12,14 +30,32 @@ def setup_user():
 
 
 def setup_card_count():
+    '''
+        Function: setup_card_count()
+
+        Does: displays the text input for the user to enter the number of cards they would like to play the game with: 8, 10, or 12
+
+        Returns:
+            - card_count: an int, the number of cards the user would like to play with: 8, 10, or 12.
+    '''
     screen = turtle.Screen()
     card_count = screen.textinput("Cards", "Enter the number of cards you woud like to play with (8, 10, or 12): ")
     return card_count
 
 def setup_config_file():
+    '''
+        Function: setup_config_file()
+
+        Does: displays the text input for the user to enter the name of the configuration file the user wants the game to retrieve the names for the images to use in the game
+
+        Returns:
+            - config_file: a string, the name of the configuration file to use
+    '''
     screen = turtle.Screen()
     config_file = screen.textinput('Card Configuration', "Enter the config file name with the image directory you want to use")
     return config_file
+
+
 
 def setup_game_space():
 

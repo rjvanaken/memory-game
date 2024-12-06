@@ -1,11 +1,9 @@
 import turtle
 import turtle_helper
 import game_helpers
-import configparser
-import os
 from GameHandler import GameHandler
 class Button:
-    '''Class to handle the behavior of the 2 custom buttons for quitting and loading cards'''
+    '''Class to handle the behavior of the 2 custom buttons for quitting and loading cards.'''
 
     def __init__(self, button, x, y, handler) -> None:
         '''Constructor for the button class'''
