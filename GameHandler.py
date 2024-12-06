@@ -252,18 +252,6 @@ class GameHandler:
         self.dir_not_found_msg.hideturtle()
         screen.update()
 
-    def display_invalid_card_path_msg(self):
-        screen = turtle.Screen()
-        screen.register_shape('invalid_card_path.gif')
-        self.invalid_card_path_msg.penup()
-        self.invalid_card_path_msg.shape('invalid_card_path.gif')
-        self.invalid_card_path_msg.showturtle()
-        self.invalid_card_path_msg.setpos(0, 0)
-        screen.update()
-        self.screen_delay(1.5)
-        self.invalid_card_path_msg.hideturtle()
-        screen.update()
-
     def display_screen_blocker(self):
         screen = turtle.Screen()
         self.screen_blocker = turtle_helper.create_screen_blocker()

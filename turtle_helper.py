@@ -33,26 +33,34 @@ def setup_card_count():
     '''
         Function: setup_card_count()
 
-        Does: displays the text input for the user to enter the number of cards they would like to play the game with: 8, 10, or 12
+        Does: displays the text input for the user to enter the number of 
+        cards they would like to play the game with: 8, 10, or 12
 
         Returns:
-            - card_count: an int, the number of cards the user would like to play with: 8, 10, or 12.
+            - card_count: an int, the number of cards the user would like to 
+            play with: 8, 10, or 12.
     '''
     screen = turtle.Screen()
-    card_count = screen.textinput("Cards", "Enter the number of cards you woud like to play with (8, 10, or 12): ")
+    card_count = screen.textinput(
+        "Cards", 
+        "Enter the number of cards you'd like to play with (8, 10, or 12):")
     return card_count
 
 def setup_config_file():
     '''
         Function: setup_config_file()
 
-        Does: displays the text input for the user to enter the name of the configuration file the user wants the game to retrieve the names for the images to use in the game
+        Does: displays the text input for the user to enter the name of the 
+        configuration file the user wants the game to retrieve the names for 
+        the images to use in the game
 
         Returns:
             - config_file: a string, the name of the configuration file to use
     '''
     screen = turtle.Screen()
-    config_file = screen.textinput('Card Configuration', "Enter the config file name with the image directory you want to use")
+    config_file = screen.textinput(
+        'Card Configuration', 
+        "Enter the config file name with the image directory you want to use")
     return config_file
 
 
@@ -142,14 +150,16 @@ def create_leaderboard_obj():
 def display_leaderboard(dic, leaderboard_turtle):
     N = 7
     i = 0
-    sorted_dict = dict(sorted(dic.items(), key=lambda item: item[1], reverse= False)[:N])
+    sorted_dict = dict(sorted(dic.items(), 
+                              key=lambda item: item[1], reverse= False)[:N])
     leaderboard_turtle.clear()
     for key, value in sorted_dict.items():
         player = f"{key} : {value}"
         leaderboard_turtle.penup()
         leaderboard_turtle.goto(player_pos[i][0], player_pos[i][1])
         leaderboard_turtle.color(Colors.off_black)
-        leaderboard_turtle.write(player, align='left', font=("Trebuchet MS", 12, "normal"))        
+        leaderboard_turtle.write(player, align='left', font=(
+            "Trebuchet MS", 12, "normal"))        
         leaderboard_turtle.hideturtle()
         i += 1
 
@@ -159,13 +169,21 @@ def display_game_status(status_tracker, attempts, matches):
     status_tracker.goto(-350, -343)
     status_tracker.color(Colors.off_black)
     if attempts == 1 and matches == 1:
-        status_tracker.write(f"{attempts} move  | {matches} match", align='left', font=("Trebuchet MS", 12, "normal"))
+        status_tracker.write(
+            f"{attempts} move  | {matches} match", 
+            align='left', font=("Trebuchet MS", 12, "normal"))
     elif attempts == 1 and matches != 1:
-        status_tracker.write(f"{attempts} move  | {matches} matches", align='left', font=("Trebuchet MS", 12, "normal"))
+        status_tracker.write(
+            f"{attempts} move  | {matches} matches", 
+            align='left', font=("Trebuchet MS", 12, "normal"))
     elif attempts != 1 and matches == 1:
-        status_tracker.write(f"{attempts} moves | {matches} match  ", align='left', font=("Trebuchet MS", 12, "normal"))
+        status_tracker.write(
+            f"{attempts} moves | {matches} match  ", 
+            align='left', font=("Trebuchet MS", 12, "normal"))
     else:
-        status_tracker.write(f"{attempts} moves | {matches} matches", align='left', font=("Trebuchet MS", 12, "normal"))
+        status_tracker.write(
+            f"{attempts} moves | {matches} matches", 
+            align='left', font=("Trebuchet MS", 12, "normal"))
 
     status_tracker.hideturtle()
 
@@ -207,32 +225,68 @@ def create_cards_loaded_msg():
     return cards_loaded_msg
 
 def create_config_not_found_msg():
+    '''
+        Function: create_config_not_found_msg()
+
+        Does: creates the config_not_found_msg turtle object.
+        This message is displayed when the config file entered during
+        "Reload Cards" cannot be found
+
+        Returns: 
+            - config_not_found_msg: a turtle object
+    '''
     config_not_found_msg = turtle.Turtle()
     config_not_found_msg.hideturtle()
     config_not_found_msg.speed(0)
     return config_not_found_msg
 
 def create_dir_not_found_msg():
+    '''
+        Function: create_dir_not_found_msg()
+
+        Does: creates the dir_not_found_msg turtle object.
+        This message is displayed when the config.cfg file
+        targets a folder name that does not exist
+
+        Returns: 
+            - dir_not_found_msg: a turtle object
+    '''
     dir_not_found_msg = turtle.Turtle()
     dir_not_found_msg.hideturtle()
     dir_not_found_msg.speed(0)
     return dir_not_found_msg
 
-def create_invalid_card_path_msg():
-    invalid_card_path_msg = turtle.Turtle()
-    invalid_card_path_msg.hideturtle()
-    invalid_card_path_msg.speed(0)
-    return invalid_card_path_msg
-
-
 def create_cover():
+    '''
+        Function: create_cover()
+
+        Does: creates the screen_cover turtle object. 
+        screen_cover is used to block the screen at the beginning
+        during one of the warning messages
+
+        Returns: 
+            - dir_not_found_msg: a turtle object
+    '''
     screen_cover = turtle.Turtle()
     screen_cover.hideturtle()
     screen_cover.speed(0)
     return screen_cover
 
+# Tracer and update functions
 
 def set_tracer(tracer):
+    '''
+        Function: set_tracer(tracer)
+
+        Does: turns tracer on or off. Purpose is to lower the use of turtle 
+        commands external to this file as much as possible.
+            - True: Turns tracer on
+            - False: Turns tracer off
+
+        Parameters:
+            - tracer: a boolean, True or False, whether to turn
+            tracer on or off
+    '''
     screen = turtle.Screen()
     if tracer == True:
         screen.tracer(1)
