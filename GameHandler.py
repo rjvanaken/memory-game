@@ -21,6 +21,7 @@ class GameHandler:
         self.invalid_card_path_msg = turtle_helper.create_invalid_card_path_msg()
         self.config_not_found_msg = turtle_helper.create_config_not_found_msg()
         self.dir_not_found_msg = turtle_helper.create_dir_not_found_msg()
+        self.screen_cover = turtle_helper.create_cover()
         self.user = self.create_user()
         self.card_count = self.set_card_count()
         self.num_flipped = 0
@@ -55,9 +56,8 @@ class GameHandler:
         card_count = int(card_count)
         return card_count
 
-    def shuffle_cards(self, card_count, config_file):
-        card_path = self.set_card_path(config_file)
-        game_helpers.get_card_image_names(card_path, 'img_ids.txt')
+    def shuffle_cards(self, card_count, card_dir):
+        game_helpers.get_card_image_names(card_dir, 'img_ids.txt')
         img_ids = []
         # add try and except for opening file
         with open('img_ids.txt', 'r') as f:
@@ -68,14 +68,14 @@ class GameHandler:
         random.shuffle(img_ids)
         return img_ids
     
+# CHECK REFER TO SHUFFLE HAVING 4 ARGS
+    
     def clear_cards(self):
         for card in self.cards:
             card.remove_card()
         self.cards = []
 
-    def set_default_card_dir(self, cwd_set, cwd):
-        if cwd_set == False:
-            cwd = os.getcwd()
+    def set_default_card_dir(self, cwd):
         card_front_path = os.path.join(cwd, 'boston_places')
         return card_front_path
         
@@ -91,12 +91,17 @@ class GameHandler:
             if os.path.exists(card_front_path):
                 return card_front_path
             else:
-                card_front_path = self.set_default_card_dir(cwd_set, cwd)
+                if cwd_set == False:
+                    cwd = os.getcwd()
+                card_front_path = self.set_default_card_dir(cwd)
+                self.show_cover()
                 self.display_dir_not_found_msg()
+                self.hide_cover()
                 return card_front_path
         else:
-            card_front_path = self.set_default_card_dir(cwd_set, cwd)
-            turtle_helper.set_tracer(False)
+            if cwd_set == False:
+                cwd = os.getcwd()
+            card_front_path = self.set_default_card_dir(cwd)
             self.display_config_not_found_msg()
             return card_front_path
             
@@ -293,6 +298,19 @@ class GameHandler:
         self.hide_screen_blocker
         screen.update()
 
+
+    def show_cover(self):
+        self.screen_cover = turtle_helper.create_cover()
+        screen = turtle.Screen()
+        screen.register_shape("cover.gif")
+        self.screen_cover.penup()
+        self.screen_cover.shape('cover.gif')
+        self.screen_cover.showturtle()
+        self.screen_cover.setpos(0, 0)
+        screen.update()
+
+    def hide_cover(self):
+        self.screen_cover.hideturtle()
         
 
 

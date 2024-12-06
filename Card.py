@@ -10,7 +10,7 @@ class Card:
     '''
 
     
-    def __init__(self, index, x, y, image_id, game_handler, config_file):
+    def __init__(self, index, x, y, image_id, game_handler, config_file, card_dir):
         '''Constructor for the Card.'''
 
         self.index = index
@@ -21,7 +21,6 @@ class Card:
         screen = turtle.Screen()
 
         # register front back shape
-        card_dir = self.game_handler.set_card_path(config_file)
         os.chdir(card_dir)
         screen.register_shape(image_id)
         self.card_front = turtle.Turtle()
@@ -42,6 +41,16 @@ class Card:
         
 
     def flip_card(self, x, y):
+        '''
+            Method: flip_card(self, x, y)
+
+            Does: "flips" the card over when clicked, by hiding the card_back image to reveal the front of the card. If the card is already flipped over, nothing happens when clicked again.
+
+            Parameters:
+                - x: the x coordinate of the respective card
+                - y: the y coordinate of the respective card 
+        
+        '''
         if not self.isRevealed:
             self.card_back.hideturtle()
             self.isRevealed = True
@@ -50,10 +59,24 @@ class Card:
     
             
     def remove_card(self):
+        '''
+            Method: remove_card(self)
+
+            Does: removes both the card_back and the card_front from the game board
+
+        
+        '''
         self.card_back.hideturtle()
         self.card_front.hideturtle()
 
     def reset_card(self):
+    
+        '''
+            Method: reset_card(self)
+
+            Does: "flips" the card back over by showing the card_back again
+        
+        '''
         self.card_back.showturtle()
         self.isRevealed = False
 

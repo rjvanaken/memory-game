@@ -188,6 +188,14 @@ def create_invalid_card_path_msg():
     invalid_card_path_msg.speed(0)
     return invalid_card_path_msg
 
+
+def create_cover():
+    screen_cover = turtle.Turtle()
+    screen_cover.hideturtle()
+    screen_cover.speed(0)
+    return screen_cover
+
+
 def set_tracer(tracer):
     screen = turtle.Screen()
     if tracer == True:

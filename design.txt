@@ -1,0 +1,2 @@
+Design Reasoning:
+    For this project, I chose to use classes for the cards and handling the game logic. To me, this seemed like the best solution, given that the card values would need to change when clicked or based on configuration. 

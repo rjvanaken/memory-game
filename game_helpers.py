@@ -3,13 +3,13 @@ from Card import Card
 import os
 
     
-def create_cards(card_count, handler, config_file):
+def create_cards(card_count, handler, config_file, card_dir):
 
-    img_ids = handler.shuffle_cards(card_count, config_file)
+    img_ids = handler.shuffle_cards(card_count, card_dir)
     index = 0
     card_list = []
     for index in range(0, card_count):
-        card = Card(index, positions[index][0], positions[index][1], img_ids[index], handler, config_file)
+        card = Card(index, positions[index][0], positions[index][1], img_ids[index], handler, config_file, card_dir)
         card_list.append(card)
         index += 1
     return card_list
