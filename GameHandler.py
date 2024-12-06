@@ -29,15 +29,17 @@ class GameHandler:
         turtle_helper.background()
         self.load_leaderboard()
         turtle_helper.setup_status_title(-420, -340)
-        turtle_helper.display_leaderboard(self.leaderboard, self.leaderboard_turtle)
-        turtle_helper.display_game_status(self.status_tracker, self.attempts, self.match_count)
+        turtle_helper.display_leaderboard(
+            self.leaderboard, self.leaderboard_turtle)
+        turtle_helper.display_game_status(
+            self.status_tracker, self.attempts, self.match_count)
 
 
     def create_user(self):
         user = turtle_helper.setup_user()
-        # TODO: Add message requiring user to enter a name (because leaderboard)
-        # while user == '' or user == None:
-        #     turtle_helper.setup_user()
+        while user == '' or user == None:
+            self.display_enter_name_msg()
+            user = turtle_helper.setup_user()
         return user
 
     def set_card_count(self):
@@ -45,7 +47,7 @@ class GameHandler:
         card_count = '0'
         card_count = turtle_helper.setup_card_count()
         while card_count not in count_options:
-            self.display_card_count_message()
+            self.display_card_count_msg()
             card_count = turtle_helper.setup_card_count()
         card_count = int(card_count)
         return card_count
@@ -78,7 +80,8 @@ class GameHandler:
             config.read(config_file)
             cwd = os.getcwd()
             cwd_set = True
-            card_front_dir = config.get('card_customization', 'card_front_dir')
+            card_front_dir = config.get(
+                'card_customization', 'card_front_dir')
             card_front_path = os.path.join(cwd, card_front_dir)
             if os.path.exists(card_front_path):
                 return card_front_path
@@ -163,24 +166,27 @@ class GameHandler:
 
     def check_cards(self, card_count, match_count):
         if match_count == card_count / 2:
-            self.display_win_message()
+            self.display_win_msg()
             self.save_score_and_update_leaderboard()
 
 
     def save_score_and_update_leaderboard(self):
         turtle_helper.set_tracer(0)
-        if self.user.title() in self.leaderboard:
-            if self.user.title() > self.attempts:
-                self.leaderboard[self.user.title()] = self.attempts
-                with open(f"leaderboard_{self.card_count}.json", "w") as f:
-                    json.dump(self.leaderboard, f)
+        if self.leaderboard[
+            self.user.title()] > self.attempts or self.user.title(
+            ) not in self.leaderboard:
+            self.leaderboard[self.user.title()] = self.attempts
+            with open(f"leaderboard_{self.card_count}.json", "w") as f:
+                json.dump(self.leaderboard, f)
         self.load_leaderboard()
-        turtle_helper.display_leaderboard(self.leaderboard, self.leaderboard_turtle)
+        turtle_helper.display_leaderboard(
+            self.leaderboard, self.leaderboard_turtle)
         turtle_helper.update_screen()
 
     def update_game_status(self):
         turtle_helper.set_tracer(0)
-        turtle_helper.display_game_status(self.status_tracker, self.attempts, self.match_count)
+        turtle_helper.display_game_status(
+            self.status_tracker, self.attempts, self.match_count)
         turtle_helper.update_screen()
         turtle_helper.set_tracer(1)
 
@@ -188,8 +194,8 @@ class GameHandler:
 
     # Messages and extras
 
-    def display_win_message(self):
-        win_msg = turtle_helper.create_win_message()
+    def display_win_msg(self):
+        win_msg = turtle_helper.create_win_msg()
         screen = turtle.Screen()
         screen.register_shape('winner.gif')
         win_msg.penup()
@@ -201,8 +207,8 @@ class GameHandler:
         win_msg.hideturtle()
         screen.update()
         
-    def display_card_count_message(self):
-        card_count_msg = turtle_helper.create_card_count_message() 
+    def display_card_count_msg(self):
+        card_count_msg = turtle_helper.create_card_count_msg() 
         screen = turtle.Screen()
         screen.register_shape('card_count_msg.gif')
         card_count_msg.penup()
@@ -227,6 +233,19 @@ class GameHandler:
         cards_loaded_msg.hideturtle()
         screen.update()
 
+    def display_enter_name_msg(self):
+        enter_name_msg = turtle_helper.create_enter_name_msg()
+        screen = turtle.Screen()
+        screen.register_shape('enter_name_msg.gif')
+        enter_name_msg.penup()
+        enter_name_msg.shape('enter_name_msg.gif')
+        enter_name_msg.showturtle()
+        enter_name_msg.setpos(0, 0)
+        screen.update()
+        self.screen_delay(1.5)
+        enter_name_msg.hideturtle()
+        screen.update()
+    
     def display_config_not_found_msg(self):
         config_not_found_msg = turtle_helper.create_config_not_found_msg()
         screen = turtle.Screen()
@@ -253,8 +272,8 @@ class GameHandler:
         dir_not_found_msg.hideturtle()
         screen.update()
 
-    def display_quit_message(self):
-        quit_msg = turtle_helper.create_quit_message()
+    def display_quit_msg(self):
+        quit_msg = turtle_helper.create_quit_msg()
         screen = turtle.Screen()
         screen.register_shape("quit_msg.gif")
         quit_msg.penup()
@@ -264,6 +283,8 @@ class GameHandler:
         screen.update()
         self.screen_delay(2)
         turtle_helper.set_tracer(1)
+
+        
 
     def show_cover(self):
         self.screen_cover = turtle_helper.create_cover()

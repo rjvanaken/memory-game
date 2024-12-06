@@ -48,7 +48,7 @@ class Button:
                 - y: the y coordinate of the "Quit Game" button 
         '''
         # display the message telling the user they chose to quit
-        self.handler.display_quit_message()
+        self.handler.display_quit_msg()
         turtle.bye()
 
 

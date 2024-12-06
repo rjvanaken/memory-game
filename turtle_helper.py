@@ -194,19 +194,25 @@ def create_leaderboard_obj():
     return leaderboard_turtle
 
 
-def create_win_message():
+def create_win_msg():
     win_msg = turtle.Turtle()
     win_msg.hideturtle()
     win_msg.speed(0)
     return win_msg
 
-def create_card_count_message():
+def create_enter_name_msg():
+    enter_name_msg = turtle.Turtle()
+    enter_name_msg.hideturtle()
+    enter_name_msg.speed(0)
+    return enter_name_msg
+
+def create_card_count_msg():
     card_count_msg = turtle.Turtle()
     card_count_msg.hideturtle()
     card_count_msg.speed(0)
     return card_count_msg
 
-def create_quit_message():
+def create_quit_msg():
     quit_msg = turtle.Turtle()
     quit_msg.hideturtle()
     quit_msg.speed(0)
