@@ -169,9 +169,11 @@ class GameHandler:
 
     def save_score_and_update_leaderboard(self):
         turtle_helper.set_tracer(0)
-        self.leaderboard[self.user.title()] = self.attempts
-        with open(f"leaderboard_{self.card_count}.json", "w") as f:
-            json.dump(self.leaderboard, f)
+        if self.user.title() in self.leaderboard:
+            if self.user.title() > self.attempts:
+                self.leaderboard[self.user.title()] = self.attempts
+                with open(f"leaderboard_{self.card_count}.json", "w") as f:
+                    json.dump(self.leaderboard, f)
         self.load_leaderboard()
         turtle_helper.display_leaderboard(self.leaderboard, self.leaderboard_turtle)
         turtle_helper.update_screen()
