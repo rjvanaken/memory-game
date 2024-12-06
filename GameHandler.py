@@ -13,14 +13,7 @@ class GameHandler:
     def __init__(self):
         '''Constructor for the GameHandler'''
         
-        self.card_count_msg = turtle_helper.create_card_count_message() 
-        self.win_msg = turtle_helper.create_win_message()
-        self.quit_msg = turtle_helper.create_quit_message()
         self.screen_blocker = turtle_helper.create_screen_blocker()
-        self.cards_loaded_msg = turtle_helper.create_cards_loaded_msg()
-        self.invalid_card_path_msg = turtle_helper.create_invalid_card_path_msg()
-        self.config_not_found_msg = turtle_helper.create_config_not_found_msg()
-        self.dir_not_found_msg = turtle_helper.create_dir_not_found_msg()
         self.screen_cover = turtle_helper.create_cover()
         self.user = self.create_user()
         self.card_count = self.set_card_count()
@@ -42,6 +35,7 @@ class GameHandler:
 
     def create_user(self):
         user = turtle_helper.setup_user()
+        # TODO: Add message requiring user to enter a name (because leaderboard)
         # while user == '' or user == None:
         #     turtle_helper.setup_user()
         return user
@@ -59,7 +53,7 @@ class GameHandler:
     def shuffle_cards(self, card_count, card_dir):
         game_helpers.get_card_image_names(card_dir, 'img_ids.txt')
         img_ids = []
-        # add try and except for opening file
+        # TODO: add try and except for opening file
         with open('img_ids.txt', 'r') as f:
             _list = f.readlines()
             for item in range(0, card_count):
@@ -67,8 +61,6 @@ class GameHandler:
                 img_ids.append(id)
         random.shuffle(img_ids)
         return img_ids
-    
-# CHECK REFER TO SHUFFLE HAVING 4 ARGS
     
     def clear_cards(self):
         for card in self.cards:
@@ -190,102 +182,86 @@ class GameHandler:
         turtle_helper.update_screen()
         turtle_helper.set_tracer(1)
 
+
+
+    # Messages and extras
+
     def display_win_message(self):
+        win_msg = turtle_helper.create_win_message()
         screen = turtle.Screen()
         screen.register_shape('winner.gif')
-        self.win_msg.penup()
-        self.win_msg.shape('winner.gif')
-        self.win_msg.showturtle()
-        self.win_msg.setpos(0, 0)
+        win_msg.penup()
+        win_msg.shape('winner.gif')
+        win_msg.showturtle()
+        win_msg.setpos(0, 0)
         screen.update()
         self.screen_delay(2)
-        self.win_msg.hideturtle()
+        win_msg.hideturtle()
         screen.update()
         
     def display_card_count_message(self):
+        card_count_msg = turtle_helper.create_card_count_message() 
         screen = turtle.Screen()
         screen.register_shape('card_count_msg.gif')
-        self.card_count_msg.penup()
-        self.card_count_msg.shape('card_count_msg.gif')
-        self.card_count_msg.showturtle()
-        self.card_count_msg.setpos(0, 0)
+        card_count_msg.penup()
+        card_count_msg.shape('card_count_msg.gif')
+        card_count_msg.showturtle()
+        card_count_msg.setpos(0, 0)
         screen.update()
         self.screen_delay(1.5)
-        self.card_count_msg.hideturtle()
+        card_count_msg.hideturtle()
         screen.update()
 
     def display_cards_loaded_msg(self):
+        cards_loaded_msg = turtle_helper.create_cards_loaded_msg()
         screen = turtle.Screen()
         screen.register_shape('cards_loaded_msg.gif')
-        self.cards_loaded_msg.penup()
-        self.cards_loaded_msg.shape('cards_loaded_msg.gif')
-        self.cards_loaded_msg.showturtle()
-        self.cards_loaded_msg.setpos(0, 0)
+        cards_loaded_msg.penup()
+        cards_loaded_msg.shape('cards_loaded_msg.gif')
+        cards_loaded_msg.showturtle()
+        cards_loaded_msg.setpos(0, 0)
         screen.update()
         self.screen_delay(1.5)
-        self.cards_loaded_msg.hideturtle()
+        cards_loaded_msg.hideturtle()
         screen.update()
 
     def display_config_not_found_msg(self):
-        self.config_not_found_msg = turtle_helper.create_config_not_found_msg()
+        config_not_found_msg = turtle_helper.create_config_not_found_msg()
         screen = turtle.Screen()
         screen.register_shape('config_not_found.gif')
-        self.config_not_found_msg.penup()
-        self.config_not_found_msg.shape('config_not_found.gif')
-        self.config_not_found_msg.showturtle()
-        self.config_not_found_msg.setpos(0, 0)
+        config_not_found_msg.penup()
+        config_not_found_msg.shape('config_not_found.gif')
+        config_not_found_msg.showturtle()
+        config_not_found_msg.setpos(0, 0)
         screen.update()
         self.screen_delay(1.5)
-        self.config_not_found_msg.hideturtle()
+        config_not_found_msg.hideturtle()
         screen.update()
 
     def display_dir_not_found_msg(self):
-        self.dir_not_found_msg = turtle_helper.create_dir_not_found_msg()
+        dir_not_found_msg = turtle_helper.create_dir_not_found_msg()
         screen = turtle.Screen()
         screen.register_shape('directory_not_found.gif')
-        self.dir_not_found_msg.penup()
-        self.dir_not_found_msg.shape('directory_not_found.gif')
-        self.dir_not_found_msg.showturtle()
-        self.dir_not_found_msg.setpos(0, 0)
+        dir_not_found_msg.penup()
+        dir_not_found_msg.shape('directory_not_found.gif')
+        dir_not_found_msg.showturtle()
+        dir_not_found_msg.setpos(0, 0)
         screen.update()
         self.screen_delay(1.5)
-        self.dir_not_found_msg.hideturtle()
-        screen.update()
-
-    def display_screen_blocker(self):
-        screen = turtle.Screen()
-        self.screen_blocker = turtle_helper.create_screen_blocker()
-        screen.register_shape('screen_blocker.gif')
-        self.screen_blocker.penup()
-        self.screen_blocker.shape('screen_blocker.gif')
-        self.screen_blocker.showturtle()
-        self.screen_blocker.setpos(0, 0)
-        screen.update()
-
-
-    def hide_screen_blocker(self):
-        screen = turtle.Screen()
-        self.screen_blocker.hideturtle()
+        dir_not_found_msg.hideturtle()
         screen.update()
 
     def display_quit_message(self):
+        quit_msg = turtle_helper.create_quit_message()
         screen = turtle.Screen()
         screen.register_shape("quit_msg.gif")
-        self.quit_msg.penup()
-        self.quit_msg.shape('quit_msg.gif')
-        self.quit_msg.showturtle()
-        self.quit_msg.setpos(0, 0)
+        quit_msg.penup()
+        quit_msg.shape('quit_msg.gif')
+        quit_msg.showturtle()
+        quit_msg.setpos(0, 0)
         screen.update()
         self.screen_delay(2)
         turtle_helper.set_tracer(1)
-        
-    def screen_delay(self, seconds):
-        screen = turtle.Screen()
-        self.display_screen_blocker
-        time.sleep(seconds)
-        self.hide_screen_blocker
-        screen.update()
-
 
     def show_cover(self):
         self.screen_cover = turtle_helper.create_cover()
@@ -299,8 +275,28 @@ class GameHandler:
 
     def hide_cover(self):
         self.screen_cover.hideturtle()
-        
 
+    def display_screen_blocker(self):
+        screen = turtle.Screen()
+        self.screen_blocker = turtle_helper.create_screen_blocker()
+        screen.register_shape('screen_blocker.gif')
+        self.screen_blocker.penup()
+        self.screen_blocker.shape('screen_blocker.gif')
+        self.screen_blocker.showturtle()
+        self.screen_blocker.setpos(0, 0)
+        screen.update()
+        
+    def hide_screen_blocker(self):
+        screen = turtle.Screen()
+        self.screen_blocker.hideturtle()
+        screen.update()       
+
+    def screen_delay(self, seconds):
+        screen = turtle.Screen()
+        self.display_screen_blocker
+        time.sleep(seconds)
+        self.hide_screen_blocker
+        screen.update()
 
                 
             
