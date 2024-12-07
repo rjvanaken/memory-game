@@ -224,6 +224,12 @@ def create_screen_blocker():
     screen_blocker.speed(0)
     return screen_blocker
 
+def create_credits_screen():
+    credits = turtle.Turtle()
+    credits.hideturtle()
+    credits.speed(0)
+    return credits
+
 def create_cards_loaded_msg():
     cards_loaded_msg = turtle.Turtle()
     cards_loaded_msg.hideturtle()

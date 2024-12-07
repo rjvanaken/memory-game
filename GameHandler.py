@@ -284,6 +284,18 @@ class GameHandler:
         self.screen_delay(2)
         turtle_helper.set_tracer(1)
 
+    def display_credits_screen(self):
+        credits = turtle_helper.create_credits_screen()
+        screen = turtle.Screen()
+        screen.register_shape("credits.gif")
+        credits.penup()
+        credits.shape('credits.gif')
+        credits.showturtle()
+        credits.setpos(0, 0)
+        screen.update()
+        self.screen_delay(3)
+        turtle_helper.set_tracer(1)
+
         
 
     def show_cover(self):
