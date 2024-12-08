@@ -1,3 +1,12 @@
+'''
+    Rebecca Van Aken
+    CS 5001, Fall, 2024
+    Final Project
+
+    This program runs a memory game, with 8, 10, or 12 cards to 
+    play with, and a working leaderboard
+'''
+
 import turtle_helper
 import game_helpers
 import turtle
@@ -5,7 +14,11 @@ from GameHandler import GameHandler
 from Button import Button
 
 
-def main():
+def play_game():
+    '''
+        Function: play_game()
+        Does: Runs the memory game
+    '''
     turtle.tracer(0)
     turtle_helper.setup_game_space()
     turtle_helper.splash_screen()
@@ -20,8 +33,16 @@ def main():
     turtle.tracer(0)
     turtle_helper.transition()
     turtle.tracer(1)
-
     turtle.Screen().mainloop()
+
+
+def main():
+    play_game()
 
 if __name__ == '__main__':
     main()
+
+
+
+# CHECK LOGIC FOR IF USER DOES NOT EXIST IN MEMORY GAME DICTIONARY
+# CHECK AND SEE IF CONFIG_FILE NEEDS TO BE IN CARD CLASS

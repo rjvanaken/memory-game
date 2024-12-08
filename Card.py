@@ -1,5 +1,10 @@
 '''
-    Memory game card class
+    Rebecca Van Aken
+    CS 5001, Fall, 2024
+    Final Project
+    
+    This file contains the Card class, created for the cards used for
+    the memory game
 '''
 
 import turtle

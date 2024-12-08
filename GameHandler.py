@@ -15,6 +15,7 @@ class GameHandler:
         
         self.screen_blocker = turtle_helper.create_screen_blocker()
         self.screen_cover = turtle_helper.create_cover()
+        # set the user's name and get the number of cards to play with
         self.user = self.create_user()
         self.card_count = self.set_card_count()
         self.num_flipped = 0
@@ -24,8 +25,11 @@ class GameHandler:
         self.compare_list = []
         self.match_count = 0
         self.attempts = 0
+        # create the leaderboard and score tracker objects
         self.leaderboard_turtle = turtle_helper.create_leaderboard_obj()
         self.status_tracker = turtle_helper.create_status_tracker_obj()
+        # display the background, set up the leaderboard and 
+        # game score tracker
         turtle_helper.background()
         self.load_leaderboard()
         turtle_helper.setup_status_title(-420, -340)
@@ -36,6 +40,15 @@ class GameHandler:
 
 
     def create_user(self):
+        '''
+            Method: create_user(self):
+            
+            Does: Asks the player to enter their name for use in the
+            leaderboard later on
+
+            Returns: user, a string, the name of the player
+
+        '''
         user = turtle_helper.setup_user()
         while user == '' or user == None:
             self.display_enter_name_msg()
@@ -43,59 +56,138 @@ class GameHandler:
         return user
 
     def set_card_count(self):
+        '''
+            Method: set_card_count(self)
+
+            Does: asks how many cards the user wants to play with
+
+            Returns: card_count, an integer, the number of cards
+            the game should be played with
+        
+        '''
         count_options = ['8', '10', '12']
         card_count = '0'
         card_count = turtle_helper.setup_card_count()
+        # if value entered is not part of the 3 options, display message
+        # requesting the user enter one of the 3 options
         while card_count not in count_options:
             self.display_card_count_msg()
             card_count = turtle_helper.setup_card_count()
+        # set the string from the input to an integer
         card_count = int(card_count)
         return card_count
 
     def shuffle_cards(self, card_count, card_dir):
+        '''
+            Method: shuffle_cards(self, card_count, card_dir)
+
+            Does:
+                - Reads the card image names from the folder and writes
+                to a file
+                - Puts the values in a list and shuffles the order
+
+            Parameters:
+                - card_count: an integer, the number of cards to play with
+                - card_dir: a string, the path to the card images
+
+            Returns:
+                - img_ids, the list of shuffled card image IDs
+        
+        '''
         game_helpers.get_card_image_names(card_dir, 'img_ids.txt')
         img_ids = []
         # TODO: add try and except for opening file
+        # open the 'img_ids.txt' file that contains the card image IDs
         with open('img_ids.txt', 'r') as f:
             _list = f.readlines()
             for item in range(0, card_count):
                 id = _list[item].strip('\n')
                 img_ids.append(id)
+        # shuffle the order of the items in the list
         random.shuffle(img_ids)
         return img_ids
     
     def clear_cards(self):
+        '''
+            Method: clear_cards(self)
+
+            Does: removes all of the cards from the screen
+        
+        '''
+        # remove all of the cards from the screen and clear the list
         for card in self.cards:
             card.remove_card()
         self.cards = []
 
     def set_default_card_dir(self, cwd):
+        '''
+            Method: set_default_card_dir(self, cwd)
+
+            Does: Sets the path of the default list of cards for whenever
+            there's an issue loading a new deck of cards
+            
+            Parameters:
+                - cwd: a string, the current working directory
+
+            Returns:
+                - card_front_path: a string, the path to the card folder
+        
+        '''
         card_front_path = os.path.join(cwd, 'boston_places')
         return card_front_path
         
     def set_card_path(self, config_file):
+        '''
+            Method: set_card_path(self, config_file)
+
+            Does: Sets the path of the folder containing the images based
+            on the folder name specified in the config_file. If folders
+            or files cannot be found, loads the default folder instead
+            
+            Parameters:
+                - config_file: a string, the name of the configuration file
+                containing the folder name
+
+            Returns:
+                - card_front_path: a string, the path to the folder containing
+                the images to play with
+        
+        '''
+        # marks the cwd as having not been set yet
         cwd_set = False
+        # if the config_file can be found, parse it and get current working
+        # directory
         if os.path.exists(config_file):
             config = configparser.ConfigParser()
             config.read(config_file)
             cwd = os.getcwd()
             cwd_set = True
+            # obtain the value from config_file and create the card path
             card_front_dir = config.get(
                 'card_customization', 'card_front_dir')
             card_front_path = os.path.join(cwd, card_front_dir)
+            # if the path exists, return the path
             if os.path.exists(card_front_path):
                 return card_front_path
             else:
+                # if current working directory was never set, get current
+                # working directory
                 if cwd_set == False:
                     cwd = os.getcwd()
+                # set card path to the default value and show message
+                # telling the user that specified directory cannot be found
                 card_front_path = self.set_default_card_dir(cwd)
                 self.show_cover()
                 self.display_dir_not_found_msg()
                 self.hide_cover()
                 return card_front_path
         else:
+            # if config_file path doesn't exist...
+            # if cwd was never acquired, get working directory
             if cwd_set == False:
                 cwd = os.getcwd()
+            # set card directory to default folder and show message telling
+            # the user the config file cannot be found
             card_front_path = self.set_default_card_dir(cwd)
             self.display_config_not_found_msg()
             return card_front_path

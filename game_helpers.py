@@ -37,14 +37,17 @@ def create_cards(card_count, handler, config_file, card_dir):
             user chose to play with
     
     '''
-
+    # run the shuffle_cards method to change up the order
     img_ids = handler.shuffle_cards(card_count, card_dir)
     index = 0
     card_list = []
+    # Set card to be equal to an instance of the Card class for the number
+    # of cards the user chose to play with
     for index in range(0, card_count):
         card = Card(
             index, positions[index][0], positions[index][1], 
             img_ids[index], handler, config_file, card_dir)
+        # Create a list with the cards in the order they are in on the screen
         card_list.append(card)
         index += 1
     return card_list
@@ -62,11 +65,12 @@ def get_card_image_names(card_dir, output_file):
             - card_dir: a string, the path to the folder with the cards the 
             user chose to play with
             - output_file: a string, the name of the file the image IDs are
-            written to
+            written to 
     
     '''
     with open('img_ids.txt', 'w') as output_file:
         for filename in os.listdir(card_dir):
+            # write the filename to the file twice since each image is
+            # used twice
             output_file.write(filename + "\n")
-            # execute this part twice since each image is used twice
             output_file.write(filename + '\n')
