@@ -1,9 +1,9 @@
 Design Reasoning:
-    For this project, I chose to use object-oriented programming, because to me, this seemed like the best solution, given that the program would frequently be manipulating the display and image IDs of the cards. I created 3 classes for this: Card, GameHandler, and Button. The GameHandler is passed in as a parameter for both Button and Card to allow for seamless behavior.
+    For this project, I chose to use object-oriented programming, because to me, this seemed like the best solution, given that the program would frequently be manipulating the display and image IDs of the cards. I created 3 classes for this: Card, GameHandler, and Button. The GameHandler is passed in as a parameter for both Button and Card to allow for seamless connection
 
     memory_game.py is what executes the game, calling the appropriate classes wherever necessary. Once everything is started up and the game is fully loaded, tracer is set back to True and the game can now run in real-time.
 
-    There are two files with helper functions: turtle_helper.py, which contains 90% of the code pertaining to turtle. I did have to put the actual shape registration and display of the messages to GameHandler so they could appear on top at all times. The other file is game_helpers.py, which contains two functions relating to the initializing of the cards on the screen.
+    There are two files with helper functions: turtle_helper.py, which contains 90% of the code pertaining to turtle. I did have to put the actual shape registration and display of the messages to GameHandler so they could appear on top at all times and I could create custom methods to show and hide them. The other file is game_helpers.py, which contains two functions relating to the initializing of the cards on the screen.
 
     I put all of the colors used in the game in a Colors class, in Colors.py. This was to avoid having to hard-code the color codes in more than one place. The last file to describe is turtle_pos.py, which contains the positions for anything that is created in a loop: the Card positions and each leaderboard entry.
 

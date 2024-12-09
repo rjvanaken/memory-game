@@ -1,20 +1,48 @@
 import turtle
 import turtle_helper
 import game_helpers
-from GameHandler import GameHandler
+
 class Button:
-    '''Class to handle the behavior of the 2 custom buttons for 
-    quitting and loading cards.'''
+    '''Class to handle the display and behavior of the 2 custom buttons 
+    for quitting and loading cards'''
 
     def __init__(self, button, x, y, handler) -> None:
-        '''Constructor for the button class'''
+        '''
+        Constructor for the button class
+
+        Creates a new Button object with the specified properties and 
+        initializes its visual representation
+
+        Arguments:
+            - button: a string, the specific button ('quit' or 'load')
+            - x: a float, X-coordinate of the button
+            - y: a float, Y-coordinate of the button
+            - handler: a reference to the GameHandler instance 
+            managing the game
+
+        Attributes:
+            - x: a float, the X-coordinate of the button
+            - y: a float, the Y-coordinate of the button
+            - button: a string, the specific button
+            - handler: the GameHandler instance
+            - quit_button: a Turtle object for the "Quit Game" button
+            - load_button: a Turtle object for the "Reload Cards" button
+
+        Does:
+            - Initializes the Button object with attributes and sets up 
+            the initial button state
+            - Creates and positions the appropriate button (quit or load) on 
+            the screen
+            - Configures the button's click handler
+        
+        '''
 
         self.x = x
         self.y = y
         self.button = button
         self.handler = handler
 
-        # if the button is the "Reload Cards" button:
+        # if the button is the "Quit Game" button:
         if self.button == 'quit':
             screen = turtle.Screen()
             # register the button shape

@@ -5,19 +5,50 @@
     
     This file contains the Card class, created for the cards used for
     the memory game
+    
 '''
 
 import turtle
 import os
 class Card:
-    '''
-    docString
-    '''
+    '''A class for the cards used in the memory game'''
 
-    
     def __init__(
-            self, index, x, y, image_id, game_handler, config_file, card_dir):
-        '''Constructor for the Card.'''
+            self, index, x, y, image_id, game_handler, card_dir):
+        '''
+            Constructor for the Card class.
+
+            Creates a new Card object with the specified properties and 
+            initializes its visual representation.
+
+            Arguments:
+                - index: an integer, the index for the card.
+                - x: a float, the X-coordinate for the card's screen position
+                - y: a float, the Y-coordinate for the card's screen position
+                - image_id: a string, the name of the image file to use for 
+                the front of the card
+                - game_handler: a reference to the GameHandler instance 
+                managing the game.
+                - card_dir: a string, the path to the folder containing the
+                card images
+
+            Attributes:
+                - index: an integer, the index of the card.
+                - image_id: a string, the image ID of the card.
+                - isRevealed: A boolean, indicating whether the card is
+                flipped over or not
+                - game_handler: the GameHandler instance.
+                - card_front: a Turtle object for the front of the card.
+                - card_back: a Turtle object for the front of the card.
+
+            Does:
+                - Initializes the Card object with attributes and sets up 
+                the initial card state
+                - Registers the card's front and back images
+                - Sets up the Card's position and click handler
+
+        '''
+
 
         self.index = index
         self.image_id = image_id
@@ -54,8 +85,8 @@ class Card:
             flipped over, nothing happens when clicked again.
 
             Parameters:
-                - x: the x coordinate of the respective card
-                - y: the y coordinate of the respective card 
+                - x: a float, the X-coordinate of the respective card
+                - y: a float, the Y-coordinate of the respective card 
         
         '''
         # if the card has not been flipped over, hide card and initiate
@@ -64,8 +95,7 @@ class Card:
             self.card_back.hideturtle()
             # set it to be flipped over so it cannot be clicked again
             self.isRevealed = True
-            image_id = self.image_id
-            self.game_handler.card_was_flipped(image_id)
+            self.game_handler.card_was_flipped(self.image_id)
     
             
     def remove_card(self):

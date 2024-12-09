@@ -1,5 +1,12 @@
+'''
+    Rebecca Van Aken
+    CS 5001, Fall, 2024
+    Final Project
 
+'''
 class Colors:
+    '''A class for establishing the colors used throughout the program'''
+
     # primary colors
     primary = '#A2798F'
     primary_dark = '#6F2F52'
