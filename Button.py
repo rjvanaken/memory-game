@@ -103,7 +103,6 @@ class Button:
         # display the message telling the user they chose to quit
         self.handler.display_quit_msg()
         self.handler.display_credits_screen()
-        turtle.bye()
 
 
     def load_cards(self, x, y):

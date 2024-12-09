@@ -462,8 +462,10 @@ class GameHandler:
         # if all the cards have been matched, display win message and update
         # leaderboard
         if match_count == card_count / 2:
-            self.display_win_msg()
             self.save_score_and_update_leaderboard()
+            self.display_win_msg()
+            # after winning, quit the program
+            self.display_credits_screen()
 
 
     def save_score_and_update_leaderboard(self):
@@ -689,9 +691,9 @@ class GameHandler:
         credits.showturtle()
         credits.setpos(0, 0)
         screen.update()
-        # pause and display for 3 seconds before continuing
+        # pause and display for 3 seconds before closing program
         self.screen_delay(3)
-        turtle_helper.set_tracer(1)
+        turtle.bye()
 
 
     def show_cover(self):
