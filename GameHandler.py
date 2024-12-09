@@ -484,8 +484,8 @@ class GameHandler:
         # a past score, update the value
         elif self.leaderboard[self.user.title()] > self.attempts:
             self.leaderboard[self.user.title()] = self.attempts
-            with open(f"leaderboard_{self.card_count}.json", "w") as f:
-                json.dump(self.leaderboard, f)
+        with open(f"leaderboard_{self.card_count}.json", "w") as f:
+            json.dump(self.leaderboard, f)
         self.load_leaderboard()
         # re-display the updated leaderboard
         turtle_helper.display_leaderboard(

@@ -46,7 +46,7 @@ def create_cards(card_count, handler, config_file, card_dir):
     for index in range(0, card_count):
         card = Card(
             index, positions[index][0], positions[index][1], 
-            img_ids[index], handler, config_file, card_dir)
+            img_ids[index], handler, card_dir)
         # Create a list with the cards in the order they are in on the screen
         card_list.append(card)
         index += 1
