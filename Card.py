@@ -126,7 +126,6 @@ class Card:
             Does: removes both the card_back and the card_front from the 
             game board
 
-        
         '''
         self.card_back.hideturtle()
         self.card_front.hideturtle()

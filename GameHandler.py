@@ -189,16 +189,18 @@ class GameHandler:
         '''
         game_helpers.get_card_image_names(card_dir, 'img_ids.txt')
         img_ids = []
-        # TODO: add try and except for opening file
         # open the 'img_ids.txt' file that contains the card image IDs
-        with open('img_ids.txt', 'r') as f:
-            _list = f.readlines()
-            for item in range(0, card_count):
-                id = _list[item].strip('\n')
-                img_ids.append(id)
-        # shuffle the order of the items in the list
-        random.shuffle(img_ids)
-        return img_ids
+        try:
+            with open('img_ids.txt', 'r') as f:
+                _list = f.readlines()
+                for item in range(0, card_count):
+                    id = _list[item].strip('\n')
+                    img_ids.append(id)
+            # shuffle the order of the items in the list
+            random.shuffle(img_ids)
+            return img_ids
+        except FileNotFoundError:
+            return "Image IDs file could not be found"
     
     def clear_cards(self):
         '''

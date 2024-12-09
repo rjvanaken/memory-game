@@ -22,10 +22,6 @@ def create_cards(card_count, handler, config_file, card_dir):
             - Initializes the Card class, according to the number of
             cards the user wants to play with
 
-        Returns:
-            - card_list: a list, containing the image IDs and representing
-            the order in which they are displayed on the screen
-
         Parameters:
             - card_count: an integer, the number of cards the user chose
             to play the game with
@@ -35,6 +31,10 @@ def create_cards(card_count, handler, config_file, card_dir):
             is config.cfg
             - card_dir: a string, the path to the folder with the cards the 
             user chose to play with
+
+        Returns:
+            - card_list: a list, containing the image IDs and representing
+            the order in which they are displayed on the screen
     
     '''
     # run the shuffle_cards method to change up the order
