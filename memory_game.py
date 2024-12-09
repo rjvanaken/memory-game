@@ -41,8 +41,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-# CHECK LOGIC FOR IF USER DOES NOT EXIST IN MEMORY GAME DICTIONARY
-# CHECK AND SEE IF CONFIG_FILE NEEDS TO BE IN CARD CLASS
