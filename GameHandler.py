@@ -18,15 +18,9 @@ import game_helpers
 import configparser
 
 class GameHandler:
-    '''A class for handling the game behavior'''
+    '''
+        A class for handling the game behavior
 
-    def __init__(self):
-        '''
-        Constructor for the GameHandler
-    
-        Initializes the GameHandler object with necessary attributes and 
-        sets up the initial game state.
-    
         Attributes:
             - screen_blocker: screen blocker turtle object
             - screen_cover: screen cover turtle object
@@ -43,11 +37,70 @@ class GameHandler:
             - leaderboard_turtle: a Turtle object for displaying the 
             leaderboard
             - status_tracker: a Turtle object for displaying the game score 
+
+        Methods:
+            - __init__(): Constructor for the GameHandler
+            - create_user(): Asks for the player's name
+            - set_card_count(): Sets the number of cards to play with
+            - shuffle_cards(card_count, card_dir): Shuffles the card image IDs
+            - clear_cards(): Removes all cards from the screen
+            - set_default_card_dir(cwd): Sets the default card directory
+            - set_card_path(config_file): Sets the path for custom card images
+            - load_leaderboard(): Loads the existing leaderboard
+            - card_was_flipped(image_id): Handles card flipping logic
+            - update_compare_list(image_id): Updates the comparison list
+            - compare_cards(compare_list): Compares IDs for the flipped cards
+            - remove_or_reset(compare_list, cards, isMatch): Resets or removes
+                cards
+            - reset_values(): Resets values between attempts
+            - reset_game_progress(): Resets game progress
+            - check_cards(card_count, match_count): Checks for game completion
+            - save_score_and_update_leaderboard(): Updates the leaderboard
+            - update_game_status(): Updates the displayed game score
+            - display_win_msg(): Displays the win message
+            - display_card_count_msg(): Displays card count message
+            - display_cards_loaded_msg(): Displays cards loaded message
+            - display_enter_name_msg(): Displays enter name message
+            - display_config_not_found_msg(): Displays config not found message
+            - display_dir_not_found_msg(): Displays directory not found message
+            - display_quit_msg(): Displays quit message
+            - display_credits_screen(): Displays credits screen
+            - show_cover(): Displays screen cover
+            - hide_cover(): Hides screen cover
+            - display_screen_blocker(): Displays screen blocker
+            - hide_screen_blocker(): Hides screen blocker
+            - screen_delay(seconds): Pauses the game for a specified time
     
-        Does: Sets up the initial game state by:
-            - creating necessary turtle objects, 
-            - initializing attributes
-            - displaying the leaderboard and game score.
+    '''
+
+    def __init__(self):
+        '''
+            Constructor for the GameHandler
+        
+            Initializes the GameHandler object with necessary attributes and 
+            sets up the initial game state.
+        
+            Attributes:
+                - screen_blocker: screen blocker turtle object
+                - screen_cover: screen cover turtle object
+                - user: a string, the player's name
+                - card_count: an integer, the number of cards to play with
+                - num_flipped: an integer, the number of cards flipped in 
+                the current round
+                - card_1_id: a string, the image_id of the first flipped card
+                - card_2_id: a string, the image_id of the second flipped card
+                - cards: a list of the Card objects displayed on the game board 
+                - compare_list: a list of image_ids for comparison
+                - match_count: an integer, the number of matches found
+                - attempts: an integer, the number of guesses the player has made
+                - leaderboard_turtle: a Turtle object for displaying the 
+                leaderboard
+                - status_tracker: a Turtle object for displaying the game score 
+        
+            Does: Sets up the initial game state by:
+                - creating necessary turtle objects, 
+                - initializing attributes
+                - displaying the leaderboard and game score.
                 
         '''
         
@@ -84,7 +137,8 @@ class GameHandler:
             Does: Asks the player to enter their name for use in the
             leaderboard later on
 
-            Returns: user, a string, the name of the player
+            Returns: 
+            - user: a string, the name of the player
 
         '''
         user = turtle_helper.setup_user()
@@ -99,8 +153,9 @@ class GameHandler:
 
             Does: asks how many cards the user wants to play with
 
-            Returns: card_count, an integer, the number of cards
-            the game should be played with
+            Returns: 
+                - card_count: an integer, the number of cards 
+                the game should be played with
         
         '''
         count_options = ['8', '10', '12']
@@ -305,7 +360,7 @@ class GameHandler:
 
     def compare_cards(self, compare_list):
         '''
-            Methods: compare_cards(self, compare_list)
+            Method: compare_cards(self, compare_list)
 
             Does: Compares the two image_ids in the compare_list to see if
             they are a match. The game status is updated, and if the cards
@@ -400,8 +455,6 @@ class GameHandler:
                 - card_count: an integer, the number of cards to play with
                 - match_count: an integer, the number of matches the player
                 has found
-
-            Returns:
         
         '''
         # if all the cards have been matched, display win message and update
@@ -482,8 +535,8 @@ class GameHandler:
         '''
             Method: display_win_msg(self)
 
-            Does: creates and displays the message that is used
-            when the user wins the game 
+            Does: creates and displays the message that is used when the user 
+            wins the game 
         
         '''
         # create the message object 

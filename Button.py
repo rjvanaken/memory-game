@@ -1,25 +1,18 @@
+'''
+    Rebecca Van Aken
+    CS 5001, Fall, 2024
+    Final Project
+'''
+
 import turtle
 import turtle_helper
 import game_helpers
 
 class Button:
-    '''Class to handle the display and behavior of the 2 custom buttons 
-    for quitting and loading cards'''
-
-    def __init__(self, button, x, y, handler) -> None:
-        '''
-        Constructor for the button class
-
-        Creates a new Button object with the specified properties and 
-        initializes its visual representation
-
-        Arguments:
-            - button: a string, the specific button ('quit' or 'load')
-            - x: a float, X-coordinate of the button
-            - y: a float, Y-coordinate of the button
-            - handler: a reference to the GameHandler instance 
-            managing the game
-
+    '''
+        Class to handle the display and behavior of the 2 custom buttons 
+        for quitting and loading cards
+        
         Attributes:
             - x: a float, the X-coordinate of the button
             - y: a float, the Y-coordinate of the button
@@ -27,13 +20,42 @@ class Button:
             - handler: the GameHandler instance
             - quit_button: a Turtle object for the "Quit Game" button
             - load_button: a Turtle object for the "Reload Cards" button
+        
+        Methods:
+            - __init__(self, button, x, y, handler): Constructor for the Button class
+            - quit_game(): Handles the logic for quitting the game
+            - load_cards(): Handles the logic for reloading cards
+    
+    '''
 
-        Does:
-            - Initializes the Button object with attributes and sets up 
-            the initial button state
-            - Creates and positions the appropriate button (quit or load) on 
-            the screen
-            - Configures the button's click handler
+    def __init__(self, button, x, y, handler):
+        '''
+            Constructor for the button class
+
+            Creates a new Button object with the specified properties and 
+            initializes its visual representation
+
+            Arguments:
+                - button: a string, the specific button ('quit' or 'load')
+                - x: a float, X-coordinate of the button
+                - y: a float, Y-coordinate of the button
+                - handler: a reference to the GameHandler instance 
+                managing the game
+
+            Attributes:
+                - x: a float, the X-coordinate of the button
+                - y: a float, the Y-coordinate of the button
+                - button: a string, the specific button
+                - handler: the GameHandler instance
+                - quit_button: a Turtle object for the "Quit Game" button
+                - load_button: a Turtle object for the "Reload Cards" button
+
+            Does:
+                - Initializes the Button object with attributes and sets up 
+                the initial button state
+                - Creates and positions the appropriate button (quit or load) 
+                on the screen
+                - Configures the button's click handler
         
         '''
 
@@ -70,11 +92,13 @@ class Button:
         '''
             Method: quit_game(self, x, y)
 
-            Does: Closes the program. Called when the "Quit Game" button is clicked
+            Does: Closes the program. Called when the "Quit Game" button is 
+            clicked
 
             Parameters:
-                - x: the x coordinate of the "Quit Game" button
-                - y: the y coordinate of the "Quit Game" button 
+                - x: the X-coordinate of the "Quit Game" button
+                - y: the Y-coordinate of the "Quit Game" button 
+
         '''
         # display the message telling the user they chose to quit
         self.handler.display_quit_msg()
@@ -86,11 +110,13 @@ class Button:
         '''
             Method: load_cards(self, x, y)
 
-            Does: Reloads the cards based on the config file and resets the game values. Called when the "Reload Cards" button
+            Does: Reloads the cards based on the config file and resets the 
+            game values. Called when the "Reload Cards" button is clicked
 
             Parameters:
-                - x: the x coordinate of the "Reload Cards" button
-                - y: the y coordinate of the "Reload Cards" button 
+                - x: the X-coordinate of the "Reload Cards" button
+                - y: the Y-coordinate of the "Reload Cards" button 
+
         '''
         # Ask the user for the name of the configuration file
         config_file = turtle_helper.setup_config_file()

@@ -11,7 +11,28 @@
 import turtle
 import os
 class Card:
-    '''A class for the cards used in the memory game'''
+    '''
+        A class for the cards used in the memory game
+        
+        Attributes:
+            - index: an integer, the index of the card
+            - image_id: a string, the image ID of the card
+            - isRevealed: A boolean, indicating whether the card is 
+            flipped over or not
+            - game_handler: the GameHandler instance
+            - card_front: a Turtle object for the front of the card
+            - card_back: a Turtle object for the front of the card
+
+        Methods:
+            - __init__(index, x, y, image_id, game_handler, card_dir): 
+            Constructor for the Card class
+            - flip_card(x, y): "Flips" the card over when clicked
+            - remove_card(): Removes both the card_back and the card_front from the 
+            game board
+            - reset_card(): "Flips" the card back over by showing the card_back again
+    
+    
+    '''
 
     def __init__(
             self, index, x, y, image_id, game_handler, card_dir):
