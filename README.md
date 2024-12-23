@@ -1,8 +1,5 @@
 ## Memory Game
 
-Memory game for my final project for CS 5001
-<br>
-
 Welcome to Boston Quest! It's just like the game you used to play as a child, only way better! Click the cards to flip them over and find the matching card in as few tries as possible!
 
 ### Configuration Instructions
