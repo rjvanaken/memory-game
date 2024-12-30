@@ -11,6 +11,7 @@
 import turtle_helper
 import turtle
 import json
+import sys
 import random
 import os
 import time
@@ -693,7 +694,7 @@ class GameHandler:
         screen.update()
         # pause and display for 3 seconds before closing program
         self.screen_delay(3)
-        turtle.bye()
+        sys.exit(0)
 
 
     def show_cover(self):
