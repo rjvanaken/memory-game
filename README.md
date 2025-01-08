@@ -7,11 +7,10 @@ There are 2 provided folders for cards to play with:
 - Boston Places (default)
 - Boston Colleges
 
-To change the cards, modify the value in the `config.py` folder to the folder name you would like to play with.
+To play with your own custom cards, add your new card folder to the main directory and modify the value of the folder name in `config.py`
 
 #### Easy Reload
 
-If you would like to reload the card value without relaunching the game, simply do the following:
-- Modify `config.py` as mentioned above and save
-- Select "Reload Cards" in the GUI and enter `config.py` in the text field
-
+If you would like to reload the card folder without relaunching the game, simply do the following:
+- Modify `config.py` as mentioned above or create a new one
+- Select "Reload Cards" in the GUI and enter `config.py` (or the name of your new config file) in the text field
