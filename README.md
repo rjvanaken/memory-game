@@ -4,8 +4,8 @@ Welcome to Boston Quest! It's just like the game you used to play as a child, on
 
 ### Configuration Instructions
 There are 2 provided folders for cards to play with:
-- Boston Places (default)
-- Boston Colleges
+- boston_places (default)
+- boston_colleges
 
 To play with your own custom cards, add your new card folder to the main directory and modify the value of the folder name in `config.py`
 
